@@ -11,7 +11,6 @@ import reportWebVitals from './reportWebVitals';
 
 const store = createStore(reducer, applyMiddleware(thunk, logger));
 
-
 ReactDOM.render(
   <Router>
     <Provider store={store}>
