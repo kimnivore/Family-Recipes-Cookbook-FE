@@ -17,8 +17,9 @@ function App() {
       <HeaderStyle>
         <h1>Family Recipes Cookbook</h1>
         <NavStyle>
-          {this.props.token ? null : <Link to='/login' className='navlink'>Login</Link>}
-          {this.props.token ? null : <Link to='/register' className='navlink'>Register</Link>}
+
+          {/* {this.props.token ? null : <Link to='/login' className='navlink'>Login</Link>}
+          {this.props.token ? null : <Link to='/register' className='navlink'>Register</Link>} */}
 
           <Link to='/add-recipe' className='navlink'>Add Recipe</Link>
           <Link to='/my-recipes' className='navlink'>My Recipes</Link>
