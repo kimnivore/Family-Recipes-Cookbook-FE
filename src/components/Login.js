@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
-import axios from 'axios';
+import React, { useState, useEffect  } from 'react';
+import { useHistory, Redirect } from 'react-router-dom';
+//import axios from 'axios';
 import schema from './validations/Schema';
 import * as yup from 'yup';
-
+import styled from 'styled-components';
 import { connect } from 'react-redux';
 import { login } from '../actions';
 
@@ -18,7 +18,7 @@ const initialFormErrors = {
 
 const initialDisabled = true;
 
-function Login()   {
+const Login = ({ login }) => {
     const { push } = useHistory();
     const [formValues, setFormValues] = useState(initialFormValues);
     const [formErrors, setFormErrors] = useState(initialFormErrors);
@@ -41,17 +41,8 @@ function Login()   {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        axios.post('https://family-recipes-cookbook1.herokuapp.com/api/auth/login', formValues)
-       .then(resp => {
-           console.log(resp);
-           localStorage.setItem('token', resp.data.token);
-           localStorage.setItem('user_id', resp.data.user_id);
-           //push('/dashboard');
-       })
-       .catch(err => {
-           console.log(err);
-           alert('A valid username and password are required')
-       })
+        login(formValues);
+        push('/recipes');
     }
 
     useEffect(() => {
@@ -60,44 +51,47 @@ function Login()   {
         });
       }, [formValues]);
 
-    const handleCreate = () => {
-        push('/register');
-    }
+    // const handleCreate = () => {
+    //     push('/register');
+    // }
 
+    if (localStorage.getItem('token')) {
+        return <Redirect to='/recipes' />
+    } else {
     return (
-        <div className='HomePage'>
-            <h1 className='Title'>Recipes</h1>
-                <p className='Intro'>Saving recipes for future generations</p>
-                    <h2 className='Instructions'>Login</h2>
-                    <form onSubmit={handleSubmit}>
-                        <label>Username:
-                            <input
-                                type='text'
-                                name='username'
-                                value={formValues.username}
-                                onChange={handleChange}
-                            />
-                            {formErrors.username && <p>{formErrors.username}</p>}
-                        </label>
-                        <label>Password:
-                            <input
-                                type='password'
-                                name='password'
-                                value={formValues.password}
-                                onChange={handleChange}
-                            />
-                            {formErrors.password && <p>{formErrors.password}</p>}
-                        </label>
-                        <button disabled={disabled} className = "LoginButton">Login</button>
-                    </form>
-                    <div className = "buttons">
-                        <button onClick={handleCreate} className = "CreateAccountButton">Create Account</button>
-                    </div>
-        </div>
-            
+    <LoginContainer>
+        <h1>Login</h1>
+        <FormContainer >
+            <form onSubmit={handleSubmit}>
+                <label>Username:
+                    <input
+                        type='text'
+                        name='username'
+                        value={formValues.username}
+                        onChange={handleChange}
+                    />
+                    {formErrors.username && <p>{formErrors.username}</p>}
+                    </label>
+                <label>Password:
+                    <input
+                        type='password'
+                        name='password'
+                        value={formValues.password}
+                        onChange={handleChange}
+                    />
+                    {formErrors.password && <p>{formErrors.password}</p>}
+                </label>
+                <button disabled={disabled} className = "LoginButton">Login</button>
+            </form>
+        </FormContainer>
+    <div>
+        {/* <button onClick={handleCreate} className = "CreateAccountButton">Create Account</button> */}
+    </div>
+</LoginContainer>
     )
 }
 
+}
 const mapStateToProps = (state) => {
     return ({
         loggingIn: state.loggingIn,
@@ -106,3 +100,50 @@ const mapStateToProps = (state) => {
 
 
 export default connect(mapStateToProps, { login })(Login);
+
+
+const LoginContainer = styled.div`
+    height: 100vh;
+    border: 1px solid black;
+    width: 100vw;
+    margin: auto;
+
+    h1 {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    `
+
+const FormContainer = styled.div`
+    height: 40vh;
+    border: 1px solid black;
+    width: 20vw;
+    margin: auto;
+    form{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 20px;
+        width: 25%;
+        padding: 20px;
+        margin: 50px auto ; 
+        font-size: 1.5rem;
+        }
+    button{
+        display:flex;
+        flex-direction:row;
+        background-color:black;
+        color:white;
+        border-radius: 10px;
+        font-size: 1.75rem;
+        font-family: 'Roboto Mono', monospace;
+        padding:1rem;
+        margin: 1rem;
+        border: none;
+        }
+    label{
+        margin: 10px;
+    }
+`

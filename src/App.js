@@ -1,8 +1,7 @@
 import React from 'react';
-import { Route, Link, Switch } from 'react-router-dom';
+import { Route, Redirect, Switch } from 'react-router-dom';
 import styled from 'styled-components';
-import Banner from './images/thumbs/04.jpg'
-//import PrivateRoute from './components/PrivateRoute';
+// import PrivateRoute from './utils/PrivateRoute';
 
 import { connect } from 'react-redux';
 
@@ -21,7 +20,7 @@ function App() {
     <AppContainer>
   
         <Navigation />
-      
+    
         <Switch>
           <Route path='/users/:user_id' component={UserRecipes} />
           <Route path='/users' component={Users} />
@@ -30,7 +29,7 @@ function App() {
           <Route path='/logout' component={Logout} />
           <Route path='/register' component={Register} /> 
           <Route path='/login' component={Login} />
-          <Route exact path='/' component={Login} />
+          <Route path='/'>{localStorage.getItem('token') ? (<Redirect to='/recipes' /> ) : (<Redirect to='/login' />)} </Route>
         </Switch>
       
     </AppContainer>
@@ -52,22 +51,6 @@ const AppContainer = styled.div`
   height: 100%;
   border: 1px solid black;
 `
-// const HeaderStyle = styled.div`
-//   display: flex;
-//   align-items: center;
-//   justify-content: space-between;
-//   padding: 20px;
-//   background-image: linear-gradient(rgba(255,255,255,0.5), rgba(255,255,255,0.5)), url(${Banner});
-// `
-
-// const NavStyle = styled.div`
-//   .navlink{
-//     margin: 20px;
-//     color: black;
-//     text-decoration: none;
-//     font-weight: bold;
-//   }
-// `
 
 
 // <HeaderStyle>

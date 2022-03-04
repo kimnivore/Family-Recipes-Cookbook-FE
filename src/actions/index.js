@@ -5,22 +5,19 @@ import axiosWithAuth from '../utils/axiosWithAuth';
 export const LOGIN_START = 'LOGIN_START';
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
 export const LOGIN_FAIL = 'LOGIN_FAIL';
-export const login = (credentials, history) => dispatch => {
+export const login = (credentials) => dispatch => {
     dispatch({ type: LOGIN_START });
     axios
         .post('https://family-recipes-cookbook1.herokuapp.com/api/auth/login', credentials)
         .then(res => {
-            //console.log(resp.data)
+            console.log(res)
             dispatch({ type: LOGIN_SUCCESS, payload: res.data});
             localStorage.setItem('token', res.data.token);
             localStorage.setItem('user_id', res.data.user_id);
-            history.push('/');
-            return true;
         })
         .catch(err => {
+            console.log(err);
             dispatch({type: LOGIN_FAIL, payload: err })
-            return false;
-            //console.log(err);
         })
 }
 
