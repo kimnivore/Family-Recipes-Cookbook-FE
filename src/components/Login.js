@@ -4,7 +4,8 @@ import axios from 'axios';
 import schema from './validations/Schema';
 import * as yup from 'yup';
 
-
+import { connect } from 'react-redux';
+import { login } from '../actions';
 
 const initialFormValues = {
     username: '',
@@ -17,7 +18,7 @@ const initialFormErrors = {
 
 const initialDisabled = true;
 
-function Home()   {
+function Login()   {
     const { push } = useHistory();
     const [formValues, setFormValues] = useState(initialFormValues);
     const [formErrors, setFormErrors] = useState(initialFormErrors);
@@ -42,9 +43,10 @@ function Home()   {
         e.preventDefault();
         axios.post('https://family-recipes-cookbook1.herokuapp.com/api/auth/login', formValues)
        .then(resp => {
+           console.log(resp);
            localStorage.setItem('token', resp.data.token);
            localStorage.setItem('user_id', resp.data.user_id);
-           push('/my-recipes');
+           //push('/dashboard');
        })
        .catch(err => {
            console.log(err);
@@ -59,14 +61,14 @@ function Home()   {
       }, [formValues]);
 
     const handleCreate = () => {
-        push('/signup');
+        push('/register');
     }
 
     return (
         <div className='HomePage'>
             <h1 className='Title'>Recipes</h1>
                 <p className='Intro'>Saving recipes for future generations</p>
-                    <h2 className='Instructions'>Login Or Create an Account</h2>
+                    <h2 className='Instructions'>Login</h2>
                     <form onSubmit={handleSubmit}>
                         <label>Username:
                             <input
@@ -96,4 +98,11 @@ function Home()   {
     )
 }
 
-export default Home;
+const mapStateToProps = (state) => {
+    return ({
+        loggingIn: state.loggingIn,
+    });
+}
+
+
+export default connect(mapStateToProps, { login })(Login);

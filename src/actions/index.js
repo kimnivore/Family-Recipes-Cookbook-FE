@@ -119,15 +119,15 @@ export const deleteRecipe = recipe_id => dispatch => {
         })
 }
 
-export const LOGOUT = 'LOGOUT';
-export const logout = () => dispatch => {
-    dispatch({ type: LOGOUT });
-    localStorage.clear();
-}
+// export const LOGOUT = 'LOGOUT';
+// export const logout = () => dispatch => {
+//     dispatch({ type: LOGOUT });
+//     localStorage.clear();
+// }
 
-export const SET_ERROR = 'SET_ERROR';
-export const setError = (err) => {
-    return({ type: SET_ERROR, payload: err });
-}
+// export const SET_ERROR = 'SET_ERROR';
+// export const setError = (err) => {
+//     return({ type: SET_ERROR, payload: err });
+// }
 
 

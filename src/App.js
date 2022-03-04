@@ -6,9 +6,10 @@ import Banner from './images/thumbs/04.jpg'
 
 import { connect } from 'react-redux';
 
+import RecipesDashboard from './components/RecipesDashboard';
 import Login from './components/Login';
 import Register from './components/Register';
-//import Logout from './components/Logout';
+import Logout from './components/Logout';
 
 
 function App() {
@@ -22,26 +23,29 @@ function App() {
           {this.props.token ? null : <Link to='/register' className='navlink'>Register</Link>} */}
           <Link to='/login' className='navlink'>Login</Link>
           <Link to='/register' className='navlink'>Register</Link>
+          <Link to='/dashboard' className='navlink'>Dashboard</Link>
           <Link to='/add-recipe' className='navlink'>Add Recipe</Link>
           <Link to='/my-recipes' className='navlink'>My Recipes</Link>
-          <Link to='/all-recipes' className='navlink'>All Recipes</Link>
           <Link to='/logout' className='navlink'>Logout</Link>
         </NavStyle>
       </HeaderStyle>
         <Switch>
-          <Route exact path ='/register' component={Register} />
-          <Route exact path ='/login' component={Login} />
+          <Route path='/dashboard' component={RecipesDashboard} />
+          <Route path='/login' component={Login} />
+          <Route path='/register' component={Register} />
+          <Route path='/logout' component={Logout} />
+          
         </Switch>
     </AppContainer>
   );
 }
 
 const mapStateToProps = (state) => {
-  return{
+  return ({
     users: state.users,
     recipes: state.recipes,
     token: state.token
-  }
+  })
 }
 
 export default connect(mapStateToProps, {})(App);

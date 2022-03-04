@@ -6,8 +6,8 @@ import {
     ADD_RECIPE_START, ADD_RECIPE_SUCCESS, ADD_RECIPE_FAIL,
     UPDATE_RECIPE_START, UPDATE_RECIPE_SUCCESS, UPDATE_RECIPE_FAIL,
     DELETE_RECIPE_START, DELETE_RECIPE_SUCCESS, DELETE_RECIPE_FAIL,
-    LOGOUT,
-    SET_ERROR
+    // LOGOUT,
+    // SET_ERROR
     } from '../actions';
 
 export const initialState = {
@@ -170,20 +170,20 @@ const reducer = (state = initialState, action) => {
                 error: action.payload
             };
 
-        case LOGOUT:
-            return {
-                ...state,
-                token: null
-            }
+        // case LOGOUT:
+        //     return {
+        //         ...state,
+        //         token: null
+        //     }
 
-        case SET_ERROR:
-            const errorMessage = 'Recipe name, source, ingredients, instructions, and category are required.';
-            return {
-                ...state,
-                recipes: [],
-                fetchingRecipes: false,
-                error: errorMessage
-            };
+        // case SET_ERROR:
+        //     const errorMessage = 'Recipe name, source, ingredients, instructions, and category are required.';
+        //     return {
+        //         ...state,
+        //         recipes: [],
+        //         fetchingRecipes: false,
+        //         error: errorMessage
+        //     };
 
         default:
             return state;
