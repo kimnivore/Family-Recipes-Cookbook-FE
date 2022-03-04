@@ -56,7 +56,6 @@ export const getUsers = () => dispatch => {
         })
 }
 
-
 export const FETCH_RECIPES_START = 'FETCH_RECIPES_START';
 export const FETCH_RECIPES_SUCCESS = 'FETCH_RECIPES_SUCCESS';
 export const FETCH_RECIPES_FAIL = 'FETCH_RECIPES_FAIL';
@@ -71,7 +70,6 @@ export const getRecipes = () => dispatch => {
             dispatch({ type: FETCH_RECIPES_FAIL, payload: err });
         })
 }
-
 
 export const ADD_RECIPE_START = 'ADD_RECIPE_START';
 export const ADD_RECIPE_SUCCESS = 'ADD_RECIPE_SUCCESS';
