@@ -20,7 +20,8 @@ function App() {
 
           {/* {this.props.token ? null : <Link to='/login' className='navlink'>Login</Link>}
           {this.props.token ? null : <Link to='/register' className='navlink'>Register</Link>} */}
-
+          <Link to='/login' className='navlink'>Login</Link>
+          <Link to='/register' className='navlink'>Register</Link>
           <Link to='/add-recipe' className='navlink'>Add Recipe</Link>
           <Link to='/my-recipes' className='navlink'>My Recipes</Link>
           <Link to='/all-recipes' className='navlink'>All Recipes</Link>

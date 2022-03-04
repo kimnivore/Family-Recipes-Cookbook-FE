@@ -181,7 +181,7 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 recipes: [],
-                isFetchingRecipes: false,
+                fetchingRecipes: false,
                 error: errorMessage
             };
 

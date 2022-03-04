@@ -1,5 +1,5 @@
 import axios from 'axios';
-//import axiosWithAuth from '../utils/axiosWithAuth';
+import axiosWithAuth from '../utils/axiosWithAuth';
 
 
 export const LOGIN_START = 'LOGIN_START';
@@ -9,11 +9,11 @@ export const login = (credentials, history) => dispatch => {
     dispatch({ type: LOGIN_START });
     axios
         .post('https://family-recipes-cookbook1.herokuapp.com/api/auth/login', credentials)
-        .then(resp => {
+        .then(res => {
             //console.log(resp.data)
-            dispatch({ type: LOGIN_SUCCESS, payload: resp.data});
-            localStorage.setItem('token', resp.data.token);
-            localStorage.setItem('user_id', resp.data.user_id);
+            dispatch({ type: LOGIN_SUCCESS, payload: res.data});
+            localStorage.setItem('token', res.data.token);
+            localStorage.setItem('user_id', res.data.user_id);
             history.push('/');
             return true;
         })
@@ -27,48 +27,97 @@ export const login = (credentials, history) => dispatch => {
 export const REGISTER_START = 'REGISTER_START';
 export const REGISTER_SUCCESS = 'REGISTER_SUCCESS';
 export const REGISTER_FAIL = 'REGISTER_FAIL';
-export const register = (credentials, history) => dispatch => {
-    const creds = { username: credentials.username, password: credentials.password }
+export const register = (credentials) => dispatch => {
+    //const creds = { username: credentials.username, password: credentials.password }
     dispatch({ type: REGISTER_START });
     axios
-        .post('https://family-recipes-cookbook1.herokuapp.com/api/auth/register', creds)
-        .then(resp => {
+        .post('https://family-recipes-cookbook1.herokuapp.com/api/auth/register', credentials)
+        .then(res => {
             dispatch({ type: REGISTER_SUCCESS });
-            if(resp.data.token) {
-                localStorage.setItem('token', resp.data.token);
-                history.push('/');
-            } else {
-                credentials.history.push('/login');
-            }
-            return true;
+           localStorage.setItem('token', res.data.token);
+           localStorage.setItem('user_id', res.data.user_id)
         })
         .catch(err => {
             dispatch({type: REGISTER_FAIL, payload: err })
-            return false;
         })
 }
 export const FETCH_USERS_START = 'FETCH_USERS_START';
 export const FETCH_USERS_SUCCESS = 'FETCH_USERS_SUCCESS';
 export const FETCH_USERS_FAIL = 'FETCH_USERS_FAIL';
+export const getUsers = () => dispatch => {
+    dispatch({ type: FETCH_USERS_START });
+    axiosWithAuth()
+        .get('/api/auth/users')
+        .then(res => {
+            dispatch({ type: FETCH_USERS_SUCCESS, payload: res.data });
+        })
+        .catch(err => {
+            dispatch({ type: FETCH_USERS_FAIL, payload: err});
+        })
+}
 
 
 export const FETCH_RECIPES_START = 'FETCH_RECIPES_START';
 export const FETCH_RECIPES_SUCCESS = 'FETCH_RECIPES_SUCCESS';
 export const FETCH_RECIPES_FAIL = 'FETCH_RECIPES_FAIL';
+export const getRecipes = () => dispatch => {
+    dispatch({ type: FETCH_RECIPES_START });
+    axiosWithAuth()
+        .get('/api/recipes')
+        .then(res => {
+            dispatch({ type: FETCH_RECIPES_SUCCESS, payload: res.data });
+        })
+        .catch(err => {
+            dispatch({ type: FETCH_RECIPES_FAIL, payload: err });
+        })
+}
 
 
 export const ADD_RECIPE_START = 'ADD_RECIPE_START';
 export const ADD_RECIPE_SUCCESS = 'ADD_RECIPE_SUCCESS';
 export const ADD_RECIPE_FAIL = 'ADD_RECIPE_FAIL';
+export const addRecipe = newRecipe => dispatch => {
+    dispatch({ type: ADD_RECIPE_START});
+    axiosWithAuth()
+        .post('/api/recipes', newRecipe)
+        .then(res => {
+            dispatch({ type: ADD_RECIPE_SUCCESS, payload: res.data });
+        })
+        .catch(err => {
+            dispatch({ type: ADD_RECIPE_FAIL, payload: err });
+        })
+}
 
 export const UPDATE_RECIPE_START = 'UPDATE_RECIPE_START';
 export const UPDATE_RECIPE_SUCCESS = 'UPDATE_RECIPE_SUCCESS';
 export const UPDATE_RECIPE_FAIL = 'UPDATE_RECIPE_FAIL';
+export const updateRecipe = recipe => dispatch => {
+    dispatch({ type: UPDATE_RECIPE_START });
+    axiosWithAuth()
+        .put(`/api/recipes/${recipe.recipe_id}`, recipe)
+        .then(res => {
+            dispatch({ type: UPDATE_RECIPE_SUCCESS, payload: res.data });
+        })
+        .catch(err => {
+            dispatch({ type: UPDATE_RECIPE_FAIL, payload: err });
+        })
+}
 
 
 export const DELETE_RECIPE_START = 'DELETE_RECIPE_START';
 export const DELETE_RECIPE_SUCCESS = 'DELETE_RECIPE_SUCCESS';
 export const DELETE_RECIPE_FAIL = 'DELETE_RECIPE_FAIL';
+export const deleteRecipe = recipe_id => dispatch => {
+    dispatch({ type: DELETE_RECIPE_START });
+    axiosWithAuth()
+        .delete(`/api/recipes/${recipe_id}`)
+        .then(res => {
+            dispatch({ type: DELETE_RECIPE_SUCCESS, payload: res.data });
+        })
+        .catch(err => {
+            dispatch({ type: DELETE_RECIPE_FAIL, payload: err });
+        })
+}
 
 export const LOGOUT = 'LOGOUT';
 export const logout = () => dispatch => {
@@ -77,39 +126,8 @@ export const logout = () => dispatch => {
 }
 
 export const SET_ERROR = 'SET_ERROR';
-export const setError = (error) => {
-    return({type:SET_ERROR, payload: error});
+export const setError = (err) => {
+    return({ type: SET_ERROR, payload: err });
 }
 
-
-export const fetchRecipes = () => (dispatch) => {
-    dispatch(fetchStart());
-    axios.get('')
-        .then(resp => {
-            dispatch(fetchSuccess(resp.data));
-        })
-        .catch(err => {
-            dispatch(fetchFail(err));
-        })
-}   
-
-export const FETCH_START = 'FETCH_START';
-export const fetchStart = () => {
-    return({type:FETCH_START});
-}
-
-export const FETCH_SUCCESS = 'FETCH_SUCCESS';
-export const fetchSuccess = (person) => {
-    return({type:FETCH_SUCCESS, payload: person});
-}
-
-export const FETCH_FAIL = 'FETCH_FAIL';
-export const fetchFail = (errorMessage) => {
-    return({type:FETCH_FAIL, payload: errorMessage});
-}
-
-export const ADD_RECIPE = 'ADD_RECIPE';
-export const addRecipe = (newRecipe) => {
-    return({type: ADD_RECIPE, payload: newRecipe});
-}
 

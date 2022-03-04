@@ -35,7 +35,7 @@ https://family-recipes-cookbook1.herokuapp.com/
 
 # *Meet the Team*
 ***Kim Nguyen
-Front End Architect React II Engineer***
+Full Stack Engineer***
 
 Github: https://github.com/kimnivore
 
