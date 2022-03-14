@@ -7,8 +7,8 @@ export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
 export const LOGIN_FAIL = 'LOGIN_FAIL';
 export const login = (credentials) => dispatch => {
     dispatch({ type: LOGIN_START });
-    axios
-        .post('https://family-recipes-cookbook1.herokuapp.com/api/auth/login', credentials)
+    axiosWithAuth()
+        .post('/api/auth/login', credentials)
         .then(res => {
             console.log(res)
             dispatch({ type: LOGIN_SUCCESS, payload: res.data});
@@ -25,16 +25,19 @@ export const REGISTER_START = 'REGISTER_START';
 export const REGISTER_SUCCESS = 'REGISTER_SUCCESS';
 export const REGISTER_FAIL = 'REGISTER_FAIL';
 export const register = (credentials) => dispatch => {
-    //const creds = { username: credentials.username, password: credentials.password }
     dispatch({ type: REGISTER_START });
-    axios
-        .post('https://family-recipes-cookbook1.herokuapp.com/api/auth/register', credentials)
+    axiosWithAuth()
+        .post('/api/auth/register', credentials)
         .then(res => {
+            console.log(res)
             dispatch({ type: REGISTER_SUCCESS });
-           localStorage.setItem('token', res.data.token);
-           localStorage.setItem('user_id', res.data.user_id)
+            localStorage.setItem('username', res.data.username);
+            localStorage.setItem('password', res.data.password);
+            localStorage.setItem('token', res.data.token);
+            localStorage.setItem('user_id', res.data.user_id);
         })
         .catch(err => {
+            console.log(err);
             dispatch({type: REGISTER_FAIL, payload: err })
         })
 }
@@ -91,9 +94,11 @@ export const updateRecipe = recipe => dispatch => {
     axiosWithAuth()
         .put(`/api/recipes/${recipe.recipe_id}`, recipe)
         .then(res => {
+            console.log(res);
             dispatch({ type: UPDATE_RECIPE_SUCCESS, payload: res.data });
         })
         .catch(err => {
+            console.log(err);
             dispatch({ type: UPDATE_RECIPE_FAIL, payload: err });
         })
 }

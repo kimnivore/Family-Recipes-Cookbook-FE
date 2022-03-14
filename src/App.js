@@ -11,8 +11,10 @@ import Register from './components/Register';
 import Logout from './components/Logout';
 import Recipes from './components/Recipes';
 import RecipeCard from './components/RecipeCard';
-import Users from './components/Users';
+// import Users from './components/Users';
 import UserRecipes from './components/UserRecipes';
+import AddRecipe from './components/AddRecipe';
+import UpdateRecipe from './components/UpdateRecipe';
 
 
 function App() {
@@ -22,9 +24,11 @@ function App() {
         <Navigation />
     
         <Switch>
-          <Route path='/users/:user_id' component={UserRecipes} />
-          <Route path='/users' component={Users} />
-          <Route path='/recipes/:id' component={RecipeCard} />
+          {/* <Route path='/user/:user_id' component={Users} /> */}
+          <Route path='/user-recipes' component={UserRecipes} />
+          <Route path='/update-recipe' component={UpdateRecipe} />
+          <Route path='/add-recipe' component={AddRecipe} />
+          <Route path='/recipes/:recipe_id' component={RecipeCard} />
           <Route path='/recipes' component={Recipes} />
           <Route path='/logout' component={Logout} />
           <Route path='/register' component={Register} /> 

@@ -37,7 +37,7 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 loggingIn: false,
-                error: ''
+                error: action.payload
             };
         case LOGIN_FAIL:
             return { 

@@ -51,11 +51,11 @@ const Login = ({ login }) => {
         });
       }, [formValues]);
 
-    // const handleCreate = () => {
-    //     push('/register');
-    // }
+    const handleCreate = () => {
+        push('/register');
+    }
 
-    if (localStorage.getItem('token')) {
+    if(localStorage.getItem('token')) {
         return <Redirect to='/recipes' />
     } else {
     return (
@@ -82,15 +82,12 @@ const Login = ({ login }) => {
                     {formErrors.password && <p>{formErrors.password}</p>}
                 </label>
                 <button disabled={disabled} className = "LoginButton">Login</button>
+                <button onClick={handleCreate} className = "CreateAccountButton">Register</button>
             </form>
         </FormContainer>
-    <div>
-        {/* <button onClick={handleCreate} className = "CreateAccountButton">Create Account</button> */}
-    </div>
 </LoginContainer>
     )
 }
-
 }
 const mapStateToProps = (state) => {
     return ({

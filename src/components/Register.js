@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react'
-import { useHistory } from 'react-router-dom';
-import axios from 'axios';
+import { useHistory, Redirect } from 'react-router-dom';
+// import axios from 'axios';
 import schema from './validations/Schema';
 import * as yup from 'yup';
-
+import styled from 'styled-components';
 import { connect } from 'react-redux';
 import { register } from '../actions';
 
@@ -17,8 +17,7 @@ const initialFormErrors = {
 };
 const initialDisabled = true;
 
-function Register()   {
-
+const Register = ({ register }) => {
     const { push } = useHistory();
     const [formValues, setFormValues] = useState(initialFormValues);
     const [formErrors, setFormErrors] = useState(initialFormErrors);
@@ -39,61 +38,108 @@ function Register()   {
         })
     };
     
-       const handleSubmit = (e) => {
-           e.preventDefault();
-           axios
-           .post('https://family-recipes-cookbook1.herokuapp.com/api/auth/register', formValues)
-           .then(resp => {
-               console.log(resp);
-               localStorage.setItem('username', resp.data.username);
-               localStorage.setItem('password', resp.data.password);
-               localStorage.setItem('token', resp.data.token);
-               //push('/dashboard');
-           })
-           .catch(err => {
-               console.log(err);
-               alert('A valid username and password are required')
-           })
-       }
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        register(formValues)
+       push('/recipes');
+        }
+        
+    useEffect(() => {
+        schema.isValid(formValues).then((valid) => {
+            setDisabled(!valid)
+        });
+    }, [formValues]);
 
-       useEffect(() => {
-           schema.isValid(formValues).then((valid) => {
-               setDisabled(!valid)
-           });
-       }, [formValues]);
+    //    const handleCreate = () => {
+    //     push('/login');
+    // }
 
+    if(localStorage.getItem('token')) {
+        return <Redirect to='/recipes' />
+    } else {
     return (
-    <div>
+    <RegisterContainer>
         <h1>Register your account</h1>
-        <form onSubmit={handleSubmit}>
-            <label>Username:
-                <input
-                type='text'
-                name='username'
-                value={formValues.username}
-                onChange={handleChange}
-            />
-                {formErrors.username && <p>{formErrors.username}</p>}
-            </label>
-            <label>Password:
-                <input
-                type='password'
-                name='password'
-                value={formValues.password}
-                onChange={handleChange}
-            />
-                {formErrors.password && <p>{formErrors.password}</p>}
-            </label>
-            <button disabled={disabled}>Register</button>
-        </form>
-    </div>
+        <FormContainer>
+            <form onSubmit={handleSubmit}>
+                <label>Username:
+                    <input
+                    type='text'
+                    name='username'
+                    value={formValues.username}
+                    onChange={handleChange}
+                />
+                    {formErrors.username && <p>{formErrors.username}</p>}
+                </label>
+                <label>Password:
+                    <input
+                    type='password'
+                    name='password'
+                    value={formValues.password}
+                    onChange={handleChange}
+                />
+                    {formErrors.password && <p>{formErrors.password}</p>}
+                </label>
+                <button disabled={disabled}>Register</button>
+                {/* <button onClick={handleCreate} className = "CreateAccountButton">Login</button> */}
+            </form>
+        </FormContainer>
+    </RegisterContainer>
     )
+}
 }
 
 const mapStateToProps = (state) => {
     return ({
         registering: state.registering,
-    })
+    });
 }
 
-export default connect(mapStateToProps, { register})(Register);
+export default connect(mapStateToProps, { register })(Register);
+
+
+
+const RegisterContainer = styled.div`
+    height: 100vh;
+    border: 1px solid black;
+    width: 100vw;
+    margin: auto;
+
+    h1 {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    `
+const FormContainer = styled.div`
+    height: 40vh;
+    border: 1px solid black;
+    width: 20vw;
+    margin: auto;
+    form{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 20px;
+        width: 25%;
+        padding: 20px;
+        margin: 50px auto ; 
+        font-size: 1.5rem;
+        }
+    button{
+        display:flex;
+        flex-direction:row;
+        background-color:black;
+        color:white;
+        border-radius: 10px;
+        font-size: 1.75rem;
+        font-family: 'Roboto Mono', monospace;
+        padding:1rem;
+        margin: 1rem;
+        border: none;
+        }
+    label{
+        margin: 10px;
+    }
+`

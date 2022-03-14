@@ -11,8 +11,8 @@ const Navigation = () => {
     {
         localStorage.getItem('token') ? (
         <div className='loggedin'>
-          <Link to='/users' className='navlink'>Users</Link> 
-          <Link to='/recipes' className='navlink'>Recipes</Link>
+          <Link to='/user-recipes' className='navlink'>My Recipes</Link> 
+          <Link to='/recipes' className='navlink'>All Recipes</Link>
           <Link to='/add-recipe' className='navlink'>Add Recipe</Link>
           <Link to='/logout' className='navlink'>Logout</Link>
         </div>
