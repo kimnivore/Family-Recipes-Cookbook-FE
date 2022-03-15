@@ -25,8 +25,8 @@ function App() {
     
         <Switch>
           {/* <Route path='/user/:user_id' component={Users} /> */}
-          <Route path='/user-recipes' component={UserRecipes} />
-          <Route path='/update-recipe' component={UpdateRecipe} />
+          {/* <Route path='/user-recipes' component={UserRecipes} /> */}
+          <Route path='/update-recipe/:recipe_id' component={UpdateRecipe} />
           <Route path='/add-recipe' component={AddRecipe} />
           <Route path='/recipes/:recipe_id' component={RecipeCard} />
           <Route path='/recipes' component={Recipes} />

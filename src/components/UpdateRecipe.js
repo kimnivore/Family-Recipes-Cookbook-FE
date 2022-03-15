@@ -11,26 +11,26 @@ const UpdateRecipe = () => {
     const { recipe_id } = useParams();
     const { push } = useHistory();
     const [recipe, setRecipe] = useState({
-        recipe_id: recipe_id,
+        // recipe_id: recipe_id,
         recipe_name: '',
         recipe_source: '',
         recipe_ingredients: '',
         recipe_instructions: '',
         recipe_category: '',
-        user_id: localStorage.getItem("user_id")
+        // user_id: localStorage.getItem("user_id")
     })
 
-//     useEffect(() => {
-//         axiosWithAuth()
-//         .get(`/api/recipes/${recipe_id}`)
-//         .then(res => {
-//             console.log(res);
-//             setRecipe(res.data)
-//         })
-//         .catch(err => {
-//             console.log(err)
-//         })
-// }, [recipe_id])
+    useEffect(() => {
+        axiosWithAuth()
+        .get(`/api/recipes/${recipe_id}`)
+        .then(res => {
+            console.log(res);
+            setRecipe(res.data)
+        })
+        .catch(err => {
+            console.log(err)
+        })
+}, [recipe_id])
 
     const handleChange = e => {
         e.persist();
@@ -53,6 +53,7 @@ const UpdateRecipe = () => {
             console.log(err)
         })
     };
+
     
     return (
     <ComponentContainer>
@@ -119,6 +120,7 @@ const UpdateRecipe = () => {
                     </label>
                 </div>
                 <button>UPDATE RECIPE</button>
+                <Link to={`/recipes`}><input type="button" className='button' value="Cancel"/></Link>
                 </div>
             </div>
             </form>
