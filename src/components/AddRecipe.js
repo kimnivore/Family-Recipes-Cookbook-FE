@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import axiosWithAuth from '../utils/axiosWithAuth';
 import { useHistory, Link } from "react-router-dom";
 import styled from 'styled-components';
-
+import Banner from '../images/thumbs/07.jpg';
 
 const AddRecipe = () => {
   const {push} = useHistory();
@@ -51,18 +51,19 @@ const AddRecipe = () => {
   };
 
   return (
+    <All>
     <ComponentContainer>
-        <div className="tabs-container">
+        {/* <div className="tabs-container">
             <Link className="tab" to="/recipes">
             All Recipes
             </Link>
-            {/* <Link className="tab" to="/user-recipes">
+            <Link className="tab" to="/user-recipes">
             My Recipes
-            </Link> */}
+            </Link>
             <Link className="tab active" to="/add-recipe">
             Add Recipe
             </Link>
-         </div>
+         </div> */}
         <div className='main'>
             <h1>Add a New Recipe</h1>
             <form onSubmit={handleSubmit}>
@@ -121,6 +122,7 @@ const AddRecipe = () => {
             </form>
         </div>
      </ComponentContainer>
+     </All>
 )
 
 }
@@ -135,14 +137,16 @@ export default AddRecipe;
 
 // export default connect(mapStateToProps, { addRecipe })(AddRecipe);
 
-
+const All = styled.div`
+    background-image: linear-gradient(rgba(255,255,255,0.5), rgba(255,255,255,0.5)), url(${Banner});
+    background-repeat: no-repeat;
+    background-position: left top;
+    background-size: cover;
+    height: 100vh;
+`
 const ComponentContainer = styled.div`
-    background-color: #386FA4;
     display: flex;
     flex-direction: column;
-    /* align-items: center;
-    justify-content: center; */
-    margin: auto;
     font-family: 'Roboto Mono', monospace;
     font-size: 1rem;
     font-weight: 400;
@@ -150,7 +154,7 @@ const ComponentContainer = styled.div`
     text-decoration: none;
     min-width: 100%;
     min-height: 100vh;
-    border: 1px solid black;
+  
 
     h1{
     font-size: 60px;
@@ -210,7 +214,7 @@ const ComponentContainer = styled.div`
 
     .tabs-container{
         display: flex;
-        border: 1px black solid;
+        /* border: 1px black solid; */
         justify-content: center;
     }
     .tab {

@@ -37,7 +37,7 @@ const Navigation = () => {
         </Navbar>
       ) : (
         <Navbar color='light' light expand='md' className='loggedout'>
-          <NavbarBrand href='/'>Family Recipes Cookbook</NavbarBrand>
+          <NavbarBrand className='title' href='/'>Family Recipes Cookbook</NavbarBrand>
           <NavbarToggler onClick={() => {setIsOpen(!isOpen) }} />
           <Collapse isOpen={isOpen} navbar>
             <Nav className='mr-auto' navbar>
@@ -64,12 +64,11 @@ const NavContainer = styled.div`
   .loggedin, .loggedout{
     background-image: linear-gradient(rgba(255,255,255,0.5), rgba(255,255,255,0.5)), url(${Banner});
     background-size: 300px;
-  
-    margin: 10px 0;
+    /* margin: 3px 0; */
     border: solid black 1px;
   }
   .title{
-    font-size: 2.5rem;
+    font-size: 2rem;
   }
   .NavItem {
     display: flex;

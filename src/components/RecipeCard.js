@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react';
 import styled from 'styled-components';
 import { useParams, useHistory } from 'react-router-dom';
 import axiosWithAuth from '../utils/axiosWithAuth';
-
+import Banner from '../images/thumbs/07.jpg';
 // setRecipes(recipes.filter(item =>(item.recipe_id !== Number(recipe_id))));
 
 const RecipeCard = (props) => {
@@ -62,6 +62,7 @@ const RecipeCard = (props) => {
     // const handleUpdate = 
 
     return (
+        <All>
         <RecipeCardContainer>
              <h1>Recipe Detail</h1>
             <div className='form'>
@@ -76,12 +77,19 @@ const RecipeCard = (props) => {
                 </div>
             </div>
         </RecipeCardContainer>
+        </All>
     )
 }
 
 
 export default RecipeCard;
-
+const All = styled.div`
+    background-image: linear-gradient(rgba(255,255,255,0.5), rgba(255,255,255,0.5)), url(${Banner});
+    background-repeat: no-repeat;
+    background-position: left top;
+    background-size: cover;
+    height: 100vh;
+`
 const RecipeCardContainer = styled.div`
     /* height: 100vh; */
     border: 1px solid black;

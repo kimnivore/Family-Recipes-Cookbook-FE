@@ -2,7 +2,7 @@ import React, {useState, useEffect } from 'react';
 import styled from 'styled-components';
 import axiosWithAuth from '../utils/axiosWithAuth';
 import { useHistory, useParams, Link } from 'react-router-dom';
-
+import Banner from '../images/thumbs/07.jpg';
 
 const Recipes = () => {
     const { push } = useHistory();
@@ -77,6 +77,7 @@ const Recipes = () => {
     //     )
     //     else 
     return (
+    <All>
     <RecipesContainer>
         <h1>Recipe Collection</h1>
       
@@ -124,15 +125,23 @@ const Recipes = () => {
             </div>
         
     </RecipesContainer>
+    </All>
     )
     }
 
 
 export default Recipes;
 
+const All = styled.div`
+    background-image: linear-gradient(rgba(255,255,255,0.5), rgba(255,255,255,0.5)), url(${Banner});
+    background-repeat: no-repeat;
+    background-position: left top;
+    background-size: cover;
+    height: 100vh;
+`
 
 const RecipesContainer = styled.div`
-    background-color: white;
+   
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -146,6 +155,7 @@ const RecipesContainer = styled.div`
     min-height: 100vh;
     border: 1px solid black;
     padding: 10px;
+   
 
     h1{
         font-size: 60px;
@@ -235,7 +245,7 @@ table {
   min-height: 400px;
   border:#d2d2d2 1px solid;
 }
-
+/* 
 table.table tr th, table.table tr td {
 	border-color: #e9e9e9;
 	padding: 12px 15px;
@@ -281,7 +291,7 @@ table.table .avatar {
 	border-radius: 50%;
 	vertical-align: middle;
 	margin-right: 10px;
-}
+} */
 
 
 .view{
