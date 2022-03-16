@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react'
 import { useHistory, Redirect } from 'react-router-dom';
-// import axios from 'axios';
 import schema from './validations/Schema';
 import * as yup from 'yup';
-import styled from 'styled-components';
 import { connect } from 'react-redux';
 import { register } from '../actions';
+
+import styled from 'styled-components';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import Banner from '../images/thumbs/07.jpg';
 
 const initialFormValues = {
     username: '',
@@ -50,41 +52,48 @@ const Register = ({ register }) => {
         });
     }, [formValues]);
 
-    //    const handleCreate = () => {
-    //     push('/login');
-    // }
 
     if(localStorage.getItem('token')) {
         return <Redirect to='/recipes' />
     } else {
+
     return (
-    <RegisterContainer>
-        <h1>Register your account</h1>
-        <FormContainer>
-            <form onSubmit={handleSubmit}>
-                <label>Username:
-                    <input
-                    type='text'
-                    name='username'
-                    value={formValues.username}
-                    onChange={handleChange}
-                />
-                    {formErrors.username && <p>{formErrors.username}</p>}
-                </label>
-                <label>Password:
-                    <input
-                    type='password'
-                    name='password'
-                    value={formValues.password}
-                    onChange={handleChange}
-                />
-                    {formErrors.password && <p>{formErrors.password}</p>}
-                </label>
-                <button disabled={disabled}>Register</button>
-                {/* <button onClick={handleCreate} className = "CreateAccountButton">Login</button> */}
-            </form>
-        </FormContainer>
-    </RegisterContainer>
+    <All>
+        <RegisterContainer>
+            <h3>Register an account</h3>
+                <form onSubmit={handleSubmit}>
+                    <div className="form-group">
+                        <label className='label'>Username:
+                            <input
+                                type='text'
+                                name='username'
+                                value={formValues.username}
+                                placeholder='Enter your username'
+                                className='form-control'
+                                onChange={handleChange}
+                            />
+                            {formErrors.username && <p>{formErrors.username}</p>}
+                        </label>
+                    </div>
+
+                    <div className="form-group">
+                        <label className='label'>Password:
+                            <input
+                            type='password'
+                            name='password'
+                            value={formValues.password}
+                            placeholder='********'
+                            className='form-control'
+                            onChange={handleChange}
+                        />
+                            {formErrors.password && <p>{formErrors.password}</p>}
+                        </label>
+                    </div>
+                        <button className="btn btn-primary btn-block" disabled={disabled}>Register</button>
+                        {/* <button onClick={handleCreate} className = "CreateAccountButton">Login</button> */}
+                </form>
+        </RegisterContainer>
+    </All>
     )
 }
 }
@@ -97,49 +106,35 @@ const mapStateToProps = (state) => {
 
 export default connect(mapStateToProps, { register })(Register);
 
+const All = styled.div`
+height: 100vh;
+width: 100vw;
+background-color: blue;
+border: 1px solid black;
+background-image: linear-gradient(rgba(255,255,255,0.5), rgba(255,255,255,0.5)), url(${Banner});
+background-repeat: no-repeat;
+background-position: left top;
+background-size: cover;
 
+`
+const RegisterContainer = styled.div` 
+  border: 2px solid #d3d3d3;
+  border-radius: .5em;
+  margin-bottom: 1em;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 100px;
+  padding: 3em;
+  text-align: left;
+  width: 40%;
+  height: auto;
+  background-color: white;
 
-const RegisterContainer = styled.div`
-    height: 100vh;
-    border: 1px solid black;
-    width: 100vw;
-    margin: auto;
+.form-group {
+  padding: 1em 0;
+}
 
-    h1 {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
-    `
-const FormContainer = styled.div`
-    height: 40vh;
-    border: 1px solid black;
-    width: 20vw;
-    margin: auto;
-    form{
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        padding: 20px;
-        width: 25%;
-        padding: 20px;
-        margin: 50px auto ; 
-        font-size: 1.5rem;
-        }
-    button{
-        display:flex;
-        flex-direction:row;
-        background-color:black;
-        color:white;
-        border-radius: 10px;
-        font-size: 1.75rem;
-        font-family: 'Roboto Mono', monospace;
-        padding:1rem;
-        margin: 1rem;
-        border: none;
-        }
-    label{
-        margin: 10px;
-    }
+.label {
+  font-weight: 600;
+}
 `

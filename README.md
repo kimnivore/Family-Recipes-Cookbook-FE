@@ -30,7 +30,7 @@ The little cards my grandma wrote the recipes on in her beautiful cursive are ge
 https://family-recipes-cookbook1.herokuapp.com/
 
 ### *Deployed URL*
-<!-- Deployed URL:  -->
+https://family-recipes-cookbook-frontend.vercel.app
 
 
 # *Meet the Team*

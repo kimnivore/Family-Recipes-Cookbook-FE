@@ -3,22 +3,30 @@ import axiosWithAuth from '../utils/axiosWithAuth';
 import { useHistory, useParams, Link} from 'react-router-dom';
 import styled from 'styled-components';
 
-// import { connect } from 'react-redux';
-// import { updateRecipe } from '../actions';
-
-
 const UpdateRecipe = () => {
     const { recipe_id } = useParams();
     const { push } = useHistory();
     const [recipe, setRecipe] = useState({
-        // recipe_id: recipe_id,
         recipe_name: '',
         recipe_source: '',
         recipe_ingredients: '',
         recipe_instructions: '',
-        recipe_category: '',
-        // user_id: localStorage.getItem("user_id")
+        recipe_category: '', 
     })
+
+    const [recipes, setRecipes] = useState([]);
+
+    useEffect(() => {
+        axiosWithAuth()
+        .get('/api/recipes')
+        .then(res => {
+            console.log(res);
+            setRecipes(res.data);
+        })
+        .catch(err => {
+            console.log(err);
+        })
+    }, [])
 
     useEffect(() => {
         axiosWithAuth()
@@ -33,12 +41,15 @@ const UpdateRecipe = () => {
 }, [recipe_id])
 
     const handleChange = e => {
-        e.persist();
         setRecipe({
             ...recipe,
             [e.target.name]: e.target.value
         });
     };
+
+    const updateRecipe = (newRecipe) => {
+        setRecipe(newRecipe);
+    }
 
     const handleSubmit = e => {
         e.preventDefault();
@@ -46,8 +57,9 @@ const UpdateRecipe = () => {
         .put(`api/recipes/${recipe_id}`, recipe)
         .then(res => {
             console.log(res);
-            setRecipe(res.data)
-            push(`/api/recipes/${recipe_id}`)
+            updateRecipe(res.data)
+            setRecipes(res.data)
+            push('/recipes')
         })
         .catch(err => {
             console.log(err)
@@ -79,6 +91,7 @@ const UpdateRecipe = () => {
                         <input
                             type='text'
                             name='recipe_name'
+                            value={recipe.recipe_name}
                             onChange={handleChange}
                         />
                     </label>
@@ -88,6 +101,7 @@ const UpdateRecipe = () => {
                         <input
                             type='text'
                             name='recipe_source'
+                            value={recipe.recipe_source}
                             onChange={handleChange}
                         />
                     </label>
@@ -97,6 +111,7 @@ const UpdateRecipe = () => {
                         <input
                             type='text'
                             name='recipe_category'
+                            value={recipe.recipe_category}
                             onChange={handleChange}
                         />
                     </label>
@@ -106,6 +121,7 @@ const UpdateRecipe = () => {
                         <input
                             type='text'
                             name='recipe_ingredients'
+                            value={recipe.recipe_ingredients}
                             onChange={handleChange}
                         />
                     </label>
@@ -115,11 +131,12 @@ const UpdateRecipe = () => {
                         <input 
                             type='text'
                             name='recipe_instructions'
+                            value={recipe.recipe_instructions}
                             onChange={handleChange}
                         />
                     </label>
                 </div>
-                <button>UPDATE RECIPE</button>
+                <button>Update Recipe</button>
                 <Link to={`/recipes`}><input type="button" className='button' value="Cancel"/></Link>
                 </div>
             </div>

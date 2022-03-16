@@ -9,7 +9,7 @@ const Recipes = () => {
     const { recipe_id } = useParams();
     //const userId = Number(localStorage.getItem('user_id'))
     const [recipes, setRecipes] = useState([]);
-   // const [recipe, setRecipe] = useState([]);
+    const [recipe, setRecipe] = useState([]);
 
     useEffect(() => {
         axiosWithAuth()
@@ -35,9 +35,9 @@ const Recipes = () => {
     //     })
     // }, [recipe_id]);
     
-    const handleAdd = () => {
-        push('/add-recipe');
-    }
+    // const handleAdd = () => {
+    //     push('/add-recipe');
+    // }
 
     // const handleUpdate = (recipe_id) => {
     //     push(`/update-recipe/${recipes.recipe_id}`);
@@ -78,13 +78,13 @@ const Recipes = () => {
     //     else 
     return (
     <RecipesContainer>
-        <h1>All Recipes</h1>
+        <h1>Recipe Collection</h1>
       
-            <div className='top'>
+            {/* <div className='top'>
                 <button className='button' onClick={() => {handleAdd()}}> Add Recipe</button> 
-                {/* <button className='button' onClick={() => {handleUpdate()}}> Update Recipe</button>  */}
-                {/* <button className='button' onClick={() => {handleDelete()}}> Delete Recipe</button>  */}
-            </div>
+                <button className='button' onClick={() => {handleUpdate()}}> Update Recipe</button>  
+               <button className='button' onClick={() => {handleDelete()}}> Delete Recipe</button> 
+            </div> */}
 
             <div>
                 <table className='table table-striped table-hover'>
@@ -110,10 +110,10 @@ const Recipes = () => {
                                         <Link to={`/recipes/${recipe.recipe_id}`} className='view'>
                                             <button className='view'>View</button>
                                         </Link>
-                                        <Link to={`/recipes/${recipe.recipe_id}`} className='view'>
+                                        {/* <Link to={`/recipes/${recipe.recipe_id}`} className='view'>
                                             <button className='view'>Update</button>
-                                        </Link>
-                                        {/* <button className='view' onClick={() => {handleDelete()}}> Delete</button>  */}
+                                        </Link> */}
+                                        {/* <button className='view' onClick={() => }>Update</button> */}
                                         <button className='view' onClick={() => handleDelete(recipe_id)}>Delete</button>
                                     </tr>
                                 )

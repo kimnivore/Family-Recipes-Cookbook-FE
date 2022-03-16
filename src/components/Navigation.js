@@ -1,53 +1,82 @@
-import React from 'react'
-import { Link } from 'react-router-dom';
+import React, { useState } from 'react'
+import Banner from '../images/thumbs/08.jpg';
 import styled from 'styled-components';
-import Banner from '../images/thumbs/04.jpg';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import {
+  Navbar,
+  NavItem,
+  NavbarToggler,
+  Collapse,
+  NavLink,
+  Nav,
+  NavbarBrand
+} from 'reactstrap';
+
 
 const Navigation = () => {
+
+  const [isOpen, setIsOpen] = useState(false);
+
   return (
-    <HeaderStyle>
-      <h1>Secret Family Recipes Cookbook</h1>
-      <NavStyle>
+ 
+    <NavContainer>
     {
         localStorage.getItem('token') ? (
-        <div className='loggedin'>
-          {/* <Link to='/user-recipes' className='navlink'>My Recipes</Link>  */}
-          <Link to='/recipes' className='navlink'>All Recipes</Link>
-          <Link to='/add-recipe' className='navlink'>Add Recipe</Link>
-          <Link to='/logout' className='navlink'>Logout</Link>
-        </div>
+        <Navbar color='light' light expand='md' className='loggedin'>
+          <NavbarBrand className='title' href='/'>Family Recipes Cookbook</NavbarBrand>
+          <NavbarToggler onClick={() => {setIsOpen(!isOpen) }} />
+          <Collapse isOpen={isOpen} navbar>
+            <Nav className='mr-auto' navbar>
+              <NavItem className='NavItem'>
+                <NavLink href='/recipes' >Recipes</NavLink>
+                <NavLink href='/add-recipe' >Add Recipe</NavLink>
+                <NavLink href='/logout' >Logout</NavLink>
+              </NavItem>
+            </Nav>
+          </Collapse>
+        </Navbar>
       ) : (
-        <div className='loggedout'>
-          <Link to='/login' className='navlink'>Login</Link>
-          <Link to='/register'  className='navlink'>Register</Link>
-        </div>
+        <Navbar color='light' light expand='md' className='loggedout'>
+          <NavbarBrand href='/'>Family Recipes Cookbook</NavbarBrand>
+          <NavbarToggler onClick={() => {setIsOpen(!isOpen) }} />
+          <Collapse isOpen={isOpen} navbar>
+            <Nav className='mr-auto' navbar>
+              <NavItem className='NavItem'>
+                <NavLink href='/login' >Login</NavLink>
+                <NavLink href='/register'>Register</NavLink>
+              </NavItem>
+            </Nav>
+          </Collapse>
+        </Navbar>
       )
     }
-    </NavStyle>
-    </HeaderStyle>
-    
+     </NavContainer>
   )
 }
 
 export default Navigation
 
 
-    const HeaderStyle = styled.div`
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 20px;
-            background-image: linear-gradient(rgba(255,255,255,0.5), rgba(255,255,255,0.5)), url(${Banner});
-     `
-    const NavStyle = styled.div`
-        .navlink{
-            margin: 20px;
-            color: black;
-            text-decoration: none;
-            font-weight: bold;
-        }
-        .navlink:focus{
-            color: gray;
-            font-weight: bold;
-        }
-     `
+const NavContainer = styled.div`
+  height: auto;
+
+
+  .loggedin, .loggedout{
+    background-image: linear-gradient(rgba(255,255,255,0.5), rgba(255,255,255,0.5)), url(${Banner});
+    background-size: 300px;
+  
+    margin: 10px 0;
+    border: solid black 1px;
+  }
+  .title{
+    font-size: 2.5rem;
+  }
+  .NavItem {
+    display: flex;
+    justify-content: space-between;
+    align-items: space-between;
+    
+  }
+`
+
+ 

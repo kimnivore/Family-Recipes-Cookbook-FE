@@ -41,11 +41,11 @@ const RecipeCard = (props) => {
         })
     }
 
-    if (!recipe || (recipe.user_id !== userId && recipe.user_id > 0))
-        return (
-            <div className='status'>You don't have access to this recipe</div>
-        )
-        else 
+    // if (!recipe || (recipe.user_id !== userId && recipe.user_id > 0))
+    //     return (
+    //         <div className='status'>You don't have access to this recipe</div>
+    //     )
+    //     else 
        
     // const handleDelete = (recipe_id) => {
     //     axiosWithAuth()

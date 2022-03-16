@@ -11,8 +11,6 @@ import Register from './components/Register';
 import Logout from './components/Logout';
 import Recipes from './components/Recipes';
 import RecipeCard from './components/RecipeCard';
-// import Users from './components/Users';
-import UserRecipes from './components/UserRecipes';
 import AddRecipe from './components/AddRecipe';
 import UpdateRecipe from './components/UpdateRecipe';
 
@@ -24,8 +22,6 @@ function App() {
         <Navigation />
     
         <Switch>
-          {/* <Route path='/user/:user_id' component={Users} /> */}
-          {/* <Route path='/user-recipes' component={UserRecipes} /> */}
           <Route path='/update-recipe/:recipe_id' component={UpdateRecipe} />
           <Route path='/add-recipe' component={AddRecipe} />
           <Route path='/recipes/:recipe_id' component={RecipeCard} />
@@ -55,19 +51,3 @@ const AppContainer = styled.div`
   height: 100%;
   border: 1px solid black;
 `
-
-
-// <HeaderStyle>
-    //      <h1>Family Recipes Cookbook</h1>
-    //      <Navigation />
-    //      <NavStyle>
-    //        {this.props.token ? null : <Link to='/login' className='navlink'>Login</Link>}
-    //        {this.props.token ? null : <Link to='/register' className='navlink'>Register</Link>}
-    //        <Link to='/login' className='navlink'>Login</Link>
-    //        <Link to='/register' className='navlink'>Register</Link>
-    //        <Link to='/recipes' className='navlink'>Recipes Dashboard</Link>
-    //        <Link to='/add-recipe' className='navlink'>Add Recipe</Link>
-    //        <Link to='/update-recipe' className='navlink'>Recipe</Link>
-    //        <Link to='/logout' className='navlink'>Logout</Link>
-    //      </NavStyle
-    //    </HeaderStyle> 

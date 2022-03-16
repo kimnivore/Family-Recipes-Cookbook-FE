@@ -46,7 +46,6 @@ const AddRecipe = () => {
     })
     .catch(err => {
         console.log(err);
-        console.log('there was an error posting')
     })
    
   };
