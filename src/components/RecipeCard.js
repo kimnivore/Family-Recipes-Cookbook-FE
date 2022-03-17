@@ -3,14 +3,13 @@ import styled from 'styled-components';
 import { useParams, useHistory } from 'react-router-dom';
 import axiosWithAuth from '../utils/axiosWithAuth';
 import Banner from '../images/thumbs/07.jpg';
-// setRecipes(recipes.filter(item =>(item.recipe_id !== Number(recipe_id))));
+import { Card, CardText, CardBody, CardLink, CardTitle, CardHeader, CardFooter, Button } from 'reactstrap';
+
 
 const RecipeCard = (props) => {
     const { recipe_id } = useParams();
-    const userId = Number(localStorage.getItem('user_id'))
     const { push } = useHistory();
     const [recipe, setRecipe] = useState([]);
-    // const recipe = recipes.find(recipe => recipe.recipe_id === Number(recipe_id));
 
     useEffect(() => {
         axiosWithAuth()
@@ -41,41 +40,36 @@ const RecipeCard = (props) => {
         })
     }
 
-    // if (!recipe || (recipe.user_id !== userId && recipe.user_id > 0))
-    //     return (
-    //         <div className='status'>You don't have access to this recipe</div>
-    //     )
-    //     else 
-       
-    // const handleDelete = (recipe_id) => {
-    //     axiosWithAuth()
-    //     .delete(`/api/recipes/${recipe_id}`)
-    //     .then(resp => {
-    //         deleteRecipe(recipe_id);
-    //         push('/recipes');
-    // })
-    //     .catch(err => {
-    //         console.log(err);
-    // })
-    // }
-
-    // const handleUpdate = 
-
     return (
         <All>
         <RecipeCardContainer>
-             <h1>Recipe Detail</h1>
-            <div className='form'>
-                <h3 className='item'>{recipe.recipe_name} </h3>
-                <p className='item'>Source: {recipe.recipe_source}</p>
-                <p className='item'>Category: {recipe.recipe_category}</p>
-                <p className='item'>Ingredients: {recipe.recipe_ingredients}</p>
-                <p className='item'>Instructions: {recipe.recipe_instructions}</p>
-                <div className='button'>    
-                    <button onClick={() => handleDelete(recipe_id)}>Delete</button>
-                    <button onClick={e => routeToUpdate(e, recipe)} key={recipe.recipe_id}>Update</button>
-                </div>
-            </div>
+            <Card className='text-center' style={{ backgroundColor: '#edf2fb', borderColor: '#333'}} >
+                <CardBody>
+                    <CardHeader className='title' tag='h3'>{recipe.recipe_name} </CardHeader>
+                    <CardTitle className='source' >By: {recipe.recipe_source}</CardTitle>
+                </CardBody>
+
+                <CardBody className='body'>
+                    <CardText className='data one'>Category: </CardText>
+                    <CardText className='data two'>{recipe.recipe_category}</CardText>
+                </CardBody>
+
+                <CardBody className='body'>
+                    <CardText className='data one'>Ingredients: </CardText>
+                    <CardText className='data two'> {recipe.recipe_ingredients}</CardText>
+                </CardBody>
+
+                <CardBody className='body'>
+                    <CardText className='data one'>Instructions: </CardText>
+                    <CardText className='data two'>{recipe.recipe_instructions}</CardText>
+                </CardBody>
+
+                <CardFooter>    
+                    <CardLink><Button className='btn-icon' type='button'  size='sm' outline color='primary' onClick={() => handleDelete(recipe_id)}>Delete</Button></CardLink>
+                    <CardLink><Button className='btn-icon' type='button'  size='sm' outline color='primary' onClick={(e) => routeToUpdate(e, recipe)} key={recipe.recipe_id}>Update</Button></CardLink>
+                </CardFooter>
+               
+            </Card>
         </RecipeCardContainer>
         </All>
     )
@@ -84,68 +78,87 @@ const RecipeCard = (props) => {
 
 export default RecipeCard;
 const All = styled.div`
+    height: 100vh;
+    width: 100vw;
+    background-color: #edf2fb;
+    /* border: 1px solid black; */
     background-image: linear-gradient(rgba(255,255,255,0.5), rgba(255,255,255,0.5)), url(${Banner});
     background-repeat: no-repeat;
     background-position: left top;
     background-size: cover;
-    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    font-family: 'Montserrat', sans-serif;
+    
+    h1{
+        font-size: 3rem;
+        margin-top: 50px;
+        font-family: 'Montserrat', sans-serif;
+    }
 `
 const RecipeCardContainer = styled.div`
-    /* height: 100vh; */
-    border: 1px solid black;
-    width: 60vw;
-    margin: auto;
-    margin-top: 10px;
-    background-color: gray;
+   width: 50%;
+   height: auto;
+   margin: 50px auto;
 
-    h1{
-        font-size: 60px;
-        font-weight: 400;
-        /* padding: 20px; */
-        margin: 10px;
-        text-align: center;
-        width: auto;
-        color: black;
-        align-items: center;
-        background-color: white;
-        border: 1px solid black;
+   .text-center{
+       margin: 20px auto;
+   }
+   .title{
+       background-color: #b6ccfe;
+       font-size: 2.5rem;
+   }
+   .source{
+       font-style: italic;
+       margin-top: 10px;
+   }
+   .data{
+       border: 1px dotted black;
+       background-color: #d7e3fc;
+       width: 100%;
+       height: auto;
+       text-align: left;
+       margin: 5px;
+   }
+   .one{
+       width: 25%;
+       padding: 20px;
+       font-size: 1.2rem;
+   }
+   .two{
+       width: 75%;
+       padding: 20px;
+   }
+ 
+   }
+   .body{
+       display: flex;
+       justify-content: center;
+       align-items: left;
+       border: 1px dotted black;
+   }
+    /* tablet */
+    @media (max-width: 768px) {
+    width: 90%;
+    .one{
+    font-size: 1.2rem;
     }
-    .form{
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: flex-start;
-        padding: 10px;
-        padding: 20px;
-        margin: auto ; 
-        font-size: 1.5rem;
-        background-color: gray;
-        }
-    .item{ 
-        border: 1px solid black;
-        width: 50vw;
-        padding: 10px;
-        background-color: white;
+    .two{
+    font-size: 1rem;
     }
-
-    .button{
-        display:flex;
-        flex-direction: row;
-        justify-content: center;
-        align-items: center;
-    }
-    button{
-      
-        align-items: center;
-        background-color:black;
-        color:white;
-        font-size: 1rem;
-        font-family: 'Roboto Mono', monospace;
-        padding:0.5rem;
-        margin: 10px;
-        }
-    label{
-        margin: 10px;
     }
 
+    /* mobile */
+    @media (max-width: 480px) {
+    width: 99%;
+    .one{
+    font-size: 0.8rem;
+    }
+    .two{
+    font-size: .8rem;
+    }
+    }
+  
+   }
 `

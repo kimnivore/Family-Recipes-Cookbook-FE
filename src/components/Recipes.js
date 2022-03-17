@@ -158,8 +158,8 @@ export default Recipes;
 const All = styled.div`
     height: 100vh;
     width: 100vw;
-    background-color: blue;
-    border: 1px solid black;
+    background-color: #edf2fb;
+    /* border: 1px solid black; */
     background-image: linear-gradient(rgba(255,255,255,0.5), rgba(255,255,255,0.5)), url(${Banner});
     background-repeat: no-repeat;
     background-position: left top;
@@ -208,11 +208,11 @@ const RecipesContainer = styled.div`
     text-align: center;
     width: 50%;
     height: auto;
-    background-color: #cce6f4;
+    background-color: #edf2fb;
     font-family: 'Montserrat', sans-serif;
 
     thead{
-        background-color: #cce6f4;
+        background-color: #edf2fb;
     }
 
     th{
