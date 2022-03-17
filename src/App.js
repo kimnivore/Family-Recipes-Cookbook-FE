@@ -1,7 +1,7 @@
 import React from 'react';
 import { Route, Redirect, Switch } from 'react-router-dom';
 import styled from 'styled-components';
-// import PrivateRoute from './utils/PrivateRoute';
+import PrivateRoute from './utils/PrivateRoute';
 
 import { connect } from 'react-redux';
 
@@ -22,11 +22,11 @@ function App() {
         <Navigation />
     
         <Switch>
-          <Route path='/update-recipe/:recipe_id' component={UpdateRecipe} />
-          <Route path='/add-recipe' component={AddRecipe} />
-          <Route path='/recipes/:recipe_id' component={RecipeCard} />
-          <Route path='/recipes' component={Recipes} />
-          <Route path='/logout' component={Logout} />
+          <PrivateRoute path='/update-recipe/:recipe_id' component={UpdateRecipe} />
+          <PrivateRoute path='/add-recipe' component={AddRecipe} />
+          <PrivateRoute path='/recipes/:recipe_id' component={RecipeCard} />
+          <PrivateRoute path='/recipes' component={Recipes} />
+          <PrivateRoute path='/logout' component={Logout} />
           <Route path='/register' component={Register} /> 
           <Route path='/login' component={Login} />
           <Route path='/'>{localStorage.getItem('token') ? (<Redirect to='/recipes' /> ) : (<Redirect to='/login' />)} </Route>
