@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react';
 import styled from 'styled-components';
 import { useParams, useHistory } from 'react-router-dom';
 import axiosWithAuth from '../utils/axiosWithAuth';
-import Banner from '../images/thumbs/07.jpg';
+import Banner from '../images/thumbs/02.jpg';
 import { Card, CardText, CardBody, CardLink, CardTitle, CardHeader, CardFooter, Button } from 'reactstrap';
 
 
@@ -81,7 +81,6 @@ const All = styled.div`
     height: 100vh;
     width: 100vw;
     background-color: #edf2fb;
-    /* border: 1px solid black; */
     background-image: linear-gradient(rgba(255,255,255,0.5), rgba(255,255,255,0.5)), url(${Banner});
     background-repeat: no-repeat;
     background-position: left top;

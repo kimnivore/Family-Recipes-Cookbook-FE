@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import axiosWithAuth from '../utils/axiosWithAuth';
 import { useHistory, Link } from "react-router-dom";
 import styled from 'styled-components';
-import Banner from '../images/thumbs/07.jpg';
+import Banner from '../images/thumbs/01.jpg';
 import{ Button, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
 
 const AddRecipe = () => {
@@ -53,7 +53,7 @@ const AddRecipe = () => {
 
   return (
     <All>
-         <h1>Add a New Recipe</h1>
+         <h1>Add a Recipe</h1>
         <ComponentContainer>
             <Form className='form' onSubmit={handleSubmit}>
 

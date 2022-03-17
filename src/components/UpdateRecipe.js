@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axiosWithAuth from '../utils/axiosWithAuth';
 import { useHistory, useParams, Link} from 'react-router-dom';
 import styled from 'styled-components';
+import Banner from '../images/thumbs/06.jpg';
 
 const UpdateRecipe = () => {
     const { recipe_id } = useParams();
@@ -69,7 +70,7 @@ const UpdateRecipe = () => {
     
     return (
     <ComponentContainer>
-        <div className="tabs-container">
+        {/* <div className="tabs-container">
             <Link className="tab" to="/recipes">
             All Recipes
             </Link>
@@ -79,7 +80,7 @@ const UpdateRecipe = () => {
             <Link className="tab active" to="/add-recipe">
             Add Recipe
             </Link>
-        </div>
+        </div> */}
         <div>
             <h1>Update Recipe</h1>
             <form onSubmit={handleSubmit}>
@@ -158,20 +159,23 @@ const UpdateRecipe = () => {
 export default UpdateRecipe;
 
 const ComponentContainer = styled.div`
-    background-color: #386FA4;
+    height: 100vh;
+    width: 100vw;
+    background-color: #edf2fb;
+    background-image: linear-gradient(rgba(255,255,255,0.5), rgba(255,255,255,0.5)), url(${Banner});
+    background-repeat: no-repeat;
+    background-position: left top;
+    background-size: cover;
     display: flex;
-    flex-direction: row;
-    /* align-items: center;
-    justify-content: center; */
-    margin: auto;
-    font-family: 'Roboto Mono', monospace;
-    font-size: 1rem;
-    font-weight: 400;
-    font-style: normal;
-    text-decoration: none;
-    min-width: 100%;
-    min-height: 100vh;
-    border: 1px solid black;
+    flex-direction: column;
+    text-align: center;
+    font-family: 'Montserrat', sans-serif;
+    
+    h1{
+        font-size: 3rem;
+        margin-top: 50px;
+        font-family: 'Montserrat', sans-serif;
+    }
 
     h1{
     font-size: 60px;
