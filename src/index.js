@@ -9,6 +9,7 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
+
 const store = createStore(reducer, applyMiddleware(thunk, logger));
 
 ReactDOM.render(

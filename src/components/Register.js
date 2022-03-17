@@ -60,7 +60,8 @@ const Register = ({ register }) => {
     return (
     <All>
         <RegisterContainer>
-            <h3>Register an account</h3>
+            <h3>Create an account</h3>
+            <p>It's quick and easy</p>
                 <form onSubmit={handleSubmit}>
                     <div className="form-group">
                         <label className='label'>Username:
@@ -90,7 +91,7 @@ const Register = ({ register }) => {
                         </label>
                     </div>
                         <button className="btn btn-primary btn-block" disabled={disabled}>Register</button>
-                        {/* <button onClick={handleCreate} className = "CreateAccountButton">Login</button> */}
+                        <p>Already have an account?  <a href='/login'>  Sign in</a></p>
                 </form>
         </RegisterContainer>
     </All>
@@ -107,34 +108,72 @@ const mapStateToProps = (state) => {
 export default connect(mapStateToProps, { register })(Register);
 
 const All = styled.div`
-height: 100vh;
-width: 100vw;
-background-color: blue;
-border: 1px solid black;
-background-image: linear-gradient(rgba(255,255,255,0.5), rgba(255,255,255,0.5)), url(${Banner});
-background-repeat: no-repeat;
-background-position: left top;
-background-size: cover;
+    height: 100vh;
+    width: 100vw;
+    background-color: blue;
+    border: 1px solid black;
+    background-image: linear-gradient(rgba(255,255,255,0.5), rgba(255,255,255,0.5)), url(${Banner});
+    background-repeat: no-repeat;
+    background-position: left top;
+    background-size: cover;
 
 `
 const RegisterContainer = styled.div` 
-  border: 2px solid #d3d3d3;
-  border-radius: .5em;
-  margin-bottom: 1em;
-  margin-left: auto;
-  margin-right: auto;
-  margin-top: 100px;
-  padding: 3em;
-  text-align: left;
-  width: 40%;
-  height: auto;
-  background-color: white;
+    border: 2px solid #d3d3d3;
+    border-radius: .5em;
+    margin-bottom: 1em;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 100px;
+    padding: 3em;
+    text-align: left;
+    width: 40%;
+    height: auto;
+    background-color: #fbfefb;
 
-.form-group {
-  padding: 1em 0;
-}
+    h3 {
+    font-size: 2rem;
+    margin-bottom: 10px;
+    text-align: center;
+    }
 
-.label {
-  font-weight: 600;
-}
+    p{
+    font-size: 1rem;
+    text-align: center;
+    }
+
+    button{
+    margin-bottom: 20px;
+    }
+
+    .form-group {
+    padding: 1em 0;
+    }
+
+    .label {
+    font-weight: 600;
+    }
+
+    /* tablet */
+    @media (max-width: 768px) {
+    width: 80%;
+
+    h3{
+    font-size: 1.5rem;
+    }
+    p{
+    font-size: 1rem;
+    }
+    }
+
+    /* mobile */
+    @media (max-width: 480px) {
+    width: 90%;
+
+    h3{
+    font-size: 1.3rem;
+    }
+    p{
+    font-size: 1rem;
+    }
 `

@@ -2,14 +2,17 @@ import React, {useState, useEffect } from 'react';
 import styled from 'styled-components';
 import axiosWithAuth from '../utils/axiosWithAuth';
 import { useHistory, useParams, Link } from 'react-router-dom';
-import Banner from '../images/thumbs/07.jpg';
+import Banner from '../images/thumbs/05.jpg';
+import { Button, Table } from 'reactstrap'
 
 const Recipes = () => {
     const { push } = useHistory();
-    const { recipe_id } = useParams();
+    const { recipe_id, user_id } = useParams();
     //const userId = Number(localStorage.getItem('user_id'))
     const [recipes, setRecipes] = useState([]);
     const [recipe, setRecipe] = useState([]);
+
+    const [users, setUsers] = useState([]);
 
     useEffect(() => {
         axiosWithAuth()
@@ -22,6 +25,21 @@ const Recipes = () => {
             console.log(err);
         })
     }, []);
+
+    // useEffect(() => {
+    //     axiosWithAuth()
+    //     .get('/api/auth/users')
+    //     .then(res => {
+    //         console.log(res);
+    //         setUsers(res.data);
+    //     })
+    //     .catch(err => {
+    //         console.log(err);
+    //     })
+    // }, []);
+
+    // const user = users.find(user => user.user_id === Number(user_id));
+    // const username = user.username;
 
     // useEffect(() => {
     //     axiosWithAuth()
@@ -71,6 +89,18 @@ const Recipes = () => {
         })
     }
 
+    // const handleView = (recipe_id) => {
+    //     axiosWithAuth()
+    //     .get(`/api/recipes/${recipe_id}`)
+    //     .then(res => {
+    //         console.log(res)
+    //         push(`/api/recipes/${recipes.recipes_id}`)
+    //     })
+    //     .catch(err => {
+    //         console.log(err)
+    //     })
+    // }
+
     // if (!recipe || (recipe.user_id !== userId && recipe.user_id > 0))
     //     return (
     //         <div className='status'>You don't have access to this recipe</div>
@@ -78,23 +108,17 @@ const Recipes = () => {
     //     else 
     return (
     <All>
-    <RecipesContainer>
-        <h1>Recipe Collection</h1>
-      
-            {/* <div className='top'>
-                <button className='button' onClick={() => {handleAdd()}}> Add Recipe</button> 
-                <button className='button' onClick={() => {handleUpdate()}}> Update Recipe</button>  
-               <button className='button' onClick={() => {handleDelete()}}> Delete Recipe</button> 
-            </div> */}
-
+        <h1>Delicious recipes </h1>
+        <h2>...saved for future generations</h2>
+        <RecipesContainer>
             <div>
-                <table className='table table-striped table-hover'>
+                <Table bordered responsive hover>
                     <thead>
                     <tr>
-                        <th>Recipe Name</th>
-                        <th>Source</th>
-                        <th>Category</th>
-                        <th></th>
+                        <th className='text-center'>Recipe</th>
+                        <th className='text-center'>Author</th>
+                        <th className='text-center'>Category</th>
+                        <th className='text-center'></th>
                     </tr>
                     </thead>
 
@@ -102,26 +126,25 @@ const Recipes = () => {
                         {
                             recipes.map(recipe => {
                                 return(
-                                    <tr className='recipe' key={recipe.recipe_id}>
-                                        <td className='recipe'>{recipe.recipe_name}</td>
-                                        <td className='recipe'>{recipe.recipe_source}</td>
-                                        <td className='recipe'>{recipe.recipe_category}</td> 
-                                        {/* <td>{recipe.recipe_ingredients}</td>  
-                                        <td>{recipe.recipe_instructions}</td> */}
-                                        <Link to={`/recipes/${recipe.recipe_id}`} className='view'>
-                                            <button className='view'>View</button>
+                                    <tr key={recipe.recipe_id}>
+                                        <td className='text-center'>{recipe.recipe_name}</td>
+                                        <td className='text-center'>{recipe.recipe_source}</td>
+                                        <td className='text-center'>{recipe.recipe_category}</td> 
+                        
+                                      <td className='text-center'>
+                                        <Link to={`/recipes/${recipe.recipe_id}`}>
+                                            <Button className='btn-icon' type='button'  size='sm' outline color='primary' >View</Button>
                                         </Link>
-                                        {/* <Link to={`/recipes/${recipe.recipe_id}`} className='view'>
-                                            <button className='view'>Update</button>
-                                        </Link> */}
-                                        {/* <button className='view' onClick={() => }>Update</button> */}
-                                        <button className='view' onClick={() => handleDelete(recipe_id)}>Delete</button>
+                                        <Link>
+                                            <Button className='btn-icon' type='button' outline color='secondary' size='sm' onClick={() => handleDelete(recipe_id)}>Delete</Button>
+                                        </Link>
+                                        </td>
                                     </tr>
                                 )
                             })
                         }
                     </tbody>
-                </table>
+                </Table>
             </div>
         
     </RecipesContainer>
@@ -133,185 +156,102 @@ const Recipes = () => {
 export default Recipes;
 
 const All = styled.div`
+    height: 100vh;
+    width: 100vw;
+    background-color: blue;
+    border: 1px solid black;
     background-image: linear-gradient(rgba(255,255,255,0.5), rgba(255,255,255,0.5)), url(${Banner});
     background-repeat: no-repeat;
     background-position: left top;
     background-size: cover;
-    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    font-family: 'Montserrat', sans-serif;
+    
+    h1{
+        font-size: 3rem;
+        margin: 50px auto 0;
+        font-family: 'Montserrat', sans-serif;
+    }
+    h2{
+        font-size: 1.8rem;
+        font-style: italic;
+        margin-left: 150px;
+        margin-top: 10px;
+        font-family: 'Hurricane', cursive;
+    }
+     /* tablet */
+     @media (max-width: 768px) {
+    h1{
+    font-size: 2rem;
+    }
+    h2{
+    font-size: 1.5rem;
+    }
+    }
+
+    /* mobile */
+    @media (max-width: 480px) {
+    h2{
+    font-size: 2rem;
+    }
+    h2{
+    font-size: 1.5rem;
+    }
 `
 
 const RecipesContainer = styled.div`
-   
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    align-self: flex-start;
-    font-family: 'Roboto Mono', monospace;
-    font-size: 1rem;
-    font-weight: 400;
-    font-style: normal;
-    text-decoration: none;
-    min-width: 100%;
-    min-height: 100vh;
-    border: 1px solid black;
-    padding: 10px;
-   
-
-    h1{
-        font-size: 60px;
-        font-weight: 400;
-        padding: 20px;
-        margin: 10px;
-        text-align: center;
-        width: auto;
-        color: black;
-        align-items: center;
-        /* border: 1px solid black; */
-    }
-    h2 {
-        text-decoration: underline;
-    }
-    p{
-        color: white;
-        font-weight: bold;
-        font-size: 1rem;
-    }
-    .all-items{
-        display: flex;
-        flex-direction: row;
-        flex-wrap: wrap;
-        justify-content: center;
-        width: 80%;
-    }
-    .item{
-        border: 1px black solid;
-        display: flex;
-        flex-direction: column;
-        flex-wrap: wrap;
-        justify-content: flex-start;
-        align-items: center;
-        margin: 10px;
-        padding: 20px;
-        width: 25%;
-        background-color: #84D2F6;
-    }
-    img{
-        width: 100px;
-        height: 100px;
-        border: #386FA4 solid 1px;
-    }
-    button {
-        border-radius: 10%;
-        font-size: 1rem;
-        margin: 5px 0;
-    }
-    .body {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        margin: auto;
-    }
-   
-   .button{
-        height: 40px;
-        color: #133C55;
-        padding: 5px;
-        font-size: 1rem;
-        font-weight: bold;
-        cursor: pointer;
-        transition: all 0.3s ease;
-        position: relative;
-        display: inline-block;
-        outline: none;
-        border-radius: 5px;
-        border: none;
-        background: #F4B860;
-        box-shadow: 0 5px #ffd819;
-        margin-bottom: 40px;
-        
-    }
-    .button:hover {
-        box-shadow: 0 3px #ffd819;
-        top: 1px;
-        }
-    .button:active {
-        box-shadow: 0 0 #ffd819;
-        top: 5px;
-}
-
-table {
-  font-size: 20px;
-  min-height: 400px;
-  border:#d2d2d2 1px solid;
-}
-/* 
-table.table tr th, table.table tr td {
-	border-color: #e9e9e9;
-	padding: 12px 15px;
-	vertical-align: middle;
-    width: 100%
-
-}
-table.table tr th:first-child {
-	width: 60%;
-}
-table.table tr th:last-child {
-	width: 100%;
-}
-table.table-striped tbody tr:nth-of-type(odd) {
-	background-color: #fcfcfc;
-}
-table.table-striped.table-hover tbody tr:hover {
-	background: #f5f5f5;
-}
-table.table th i {
-	font-size: 13px;
-	margin: 0 5px;
-	cursor: pointer;
-}	
-table.table td:last-child i {
-	opacity: 0.9;
-	font-size: 22px;
-	margin: 0 5px;
-}
-table.table td a {
-	font-weight: bold;
-	color: #566787;
-	display: inline-block;
-	text-decoration: none;
-	outline: none !important;
-    border: 1px solid black;
-}
-table.table td a:hover {
-	color: #2196F3;
-}
-
-table.table .avatar {
-	border-radius: 50%;
-	vertical-align: middle;
-	margin-right: 10px;
-} */
-
-
-.view{
-    display: flex;
+    border: 2px solid #85c7de;
+    border-radius: .5em;
+    margin: 50px auto;
     text-align: center;
-    width: 100px;
-    color:#435d7d;
-	font-size: 1rem !important;
-    text-decoration: none;
-    align-self: center;
-    vertical-align: middle;
+    width: 50%;
+    height: auto;
+    background-color: #cce6f4;
+    font-family: 'Montserrat', sans-serif;
 
-}
+    thead{
+        background-color: #cce6f4;
+    }
 
-.recipe{
-    border: 1px solid black
-}
+    th{
+        color: #757575;
+        font-size: 1.5rem;
+    }
+    tr{
+        border: 2px solid #85c7de;
+    }
+    td{
+        background-color: #ffffff;
+        text-align: center;
+        font-size: 1.2rem;
+    }
 
-thead{
-    background-color: gray;
-}
+    Button{
+        margin: 10px;
+        font-size: 0.9rem;
+    }
 
+     /* tablet */
+    @media (max-width: 768px) {
+    width: 80%;
+    h1{
+    font-size: 1.5rem;
+    }
+    h2{
+    font-size: 1rem;
+    }
+    }
+
+    /* mobile */
+    @media (max-width: 480px) {
+    width: 90%;
+    h2{
+    font-size: 1.3rem;
+    }
+    h2{
+    font-size: 1rem;
+    }
+    }
 `

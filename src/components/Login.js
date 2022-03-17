@@ -60,7 +60,8 @@ const Login = ({ login }) => {
     return (
     <All>
         <LoginContainer>
-            <h3>Sign In</h3>
+            <h3>Good to see you again</h3>
+            <p>Sign in to rediscover your recipe collection</p>
             <form onSubmit={handleSubmit}>
                 <div className="form-group">
                     <label className='label'>Username
@@ -92,10 +93,11 @@ const Login = ({ login }) => {
                 <div className="form-group">
                     <div className="custom-control custom-checkbox">
                                 <input type="checkbox" className="custom-control-input" id="customCheck1" />
-                                <label className="custom-control-label" htmlFor="customCheck1">Remember me</label>
+                                <label className="custom-control-label" htmlFor="customCheck1">Keep me signed in</label>
                     </div>
                 </div>
                 <button className="btn btn-primary btn-block" disabled={disabled}>Submit</button>
+                <p>Not a member yet? <a href='/register'>  Register now</a></p>
             </form>
         </LoginContainer>
     </All>
@@ -113,59 +115,78 @@ export default connect(mapStateToProps, { login })(Login);
 
 
 const All = styled.div`
-height: 100vh;
-width: 100vw;
-background-color: blue;
-border: 1px solid black;
-background-image: linear-gradient(rgba(255,255,255,0.5), rgba(255,255,255,0.5)), url(${Banner});
-background-repeat: no-repeat;
-background-position: left top;
-background-size: cover;
-`
+    height: 100vh;
+    width: 100vw;
+    background-color: blue;
+    border: 1px solid black;
+    background-image: linear-gradient(rgba(255,255,255,0.5), rgba(255,255,255,0.5)), url(${Banner});
+    background-repeat: no-repeat;
+    background-position: left top;
+    background-size: cover;
+    `
 const LoginContainer = styled.div` 
-  border: 2px solid #d3d3d3;
-  border-radius: .5em;
-  margin-bottom: 1em;
-  margin-left: auto;
-  margin-right: auto;
-  margin-top: 100px;
-  padding: 3em;
-  text-align: left;
-  width: 40%;
-  height: auto;
-  background-color: white;
+    border: 2px solid #d3d3d3;
+    border-radius: .5em;
+    margin-bottom: 1em;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 100px;
+    padding: 3em;
+    text-align: left;
+    width: 40%;
+    height: auto;
+    background-color: #fbfefb;
 
+    h3 {
+    font-size: 2rem;
+    margin-bottom: 10px;
+    text-align: center;
+    }
 
-.form-group {
-  padding: 1em 0;
+    p{
+    font-size: 1rem;
+    text-align: center;
+    }
+
+    button{
+    margin-bottom: 20px;
+    }
+
+    .form-group {
+    padding: 1em 0;
+    }
+
+    .label {
+    font-weight: 600;
+    }
+
+    .custom-control-input {
+    margin-right: 5px;
+    }
+
+    /* tablet */
+    @media (max-width: 768px) {
+    width: 80%;
+
+    h3{
+    font-size: 1.5rem;
+    }
+    p{
+    font-size: 1rem;
+    }
+    }
+
+    /* mobile */
+    @media (max-width: 480px) {
+    width: 90%;
+
+    h3{
+    font-size: 1.3rem;
+    }
+    p{
+    font-size: 1rem;
+    }
+   
 }
 
-.label {
-  font-weight: 600;
-}
-`
-
-// const Form = styled.div`
-//     height: 40vh;
-//     border: 1px solid black;
-//     width: 20vw;
-//     margin: auto;
-//     form{
-//         display: flex;
-//         flex-direction: column;
-//         justify-content: center;
-//         align-items: center;
-//         padding: 20px;
-//         width: 25%;
-//         padding: 20px;
-//         margin: 50px auto ; 
-//         font-size: 1.5rem;
-//         }
-//     Button{
-//         display:flex;
-//         flex-direction:row;
-//         }
-//     label{
-//         margin: 10px;
-//     }
-// `
+`;
