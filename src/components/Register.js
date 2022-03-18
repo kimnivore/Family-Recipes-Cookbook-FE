@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react'
-import { useHistory, Redirect } from 'react-router-dom';
-import schema from './validations/Schema';
+import { useHistory } from 'react-router-dom';
+import schema from './validations/UserSchema';
 import * as yup from 'yup';
-import { connect } from 'react-redux';
-import { register } from '../actions';
+import axios from 'axios';
 
 import styled from 'styled-components';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -42,8 +41,19 @@ const Register = ({ register }) => {
     
     const handleSubmit = (e) => {
         e.preventDefault();
-        register(formValues)
-       push('/recipes');
+        axios.post('https://family-recipes-cookbook1.herokuapp.com/api/auth/register', formValues)
+        .then(res => {
+            localStorage.setItem('username', res.data.username);
+            localStorage.setItem('password', res.data.password);
+            localStorage.setItem('token', res.data.token);
+            localStorage.setItem('user_id', res.data.user_id);
+            alert("You've been registered! Please sign in with your account information.")
+            push('/login')
+        })
+        .catch(err => {
+            console.log(err);
+            alert('A unique username is required')
+        })
         }
         
     useEffect(() => {
@@ -53,9 +63,9 @@ const Register = ({ register }) => {
     }, [formValues]);
 
 
-    if(localStorage.getItem('token')) {
-        return <Redirect to='/recipes' />
-    } else {
+    // if(localStorage.getItem('token')) {
+    //     return <Redirect to='/login' />
+    // } else {
 
     return (
     <All>
@@ -97,15 +107,9 @@ const Register = ({ register }) => {
     </All>
     )
 }
-}
 
-const mapStateToProps = (state) => {
-    return ({
-        registering: state.registering,
-    });
-}
 
-export default connect(mapStateToProps, { register })(Register);
+export default Register;
 
 const All = styled.div`
     height: 100vh;

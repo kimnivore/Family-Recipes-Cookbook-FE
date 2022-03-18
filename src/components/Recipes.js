@@ -7,18 +7,13 @@ import { Button, Table } from 'reactstrap'
 
 const Recipes = () => {
     const { push } = useHistory();
-    const { recipe_id, user_id } = useParams();
-    //const userId = Number(localStorage.getItem('user_id'))
+    const { recipe_id } = useParams();
     const [recipes, setRecipes] = useState([]);
-    const [recipe, setRecipe] = useState([]);
-
-    const [users, setUsers] = useState([]);
 
     useEffect(() => {
         axiosWithAuth()
         .get('/api/recipes')
         .then(res => {
-            console.log(res);
             setRecipes(res.data);
         })
         .catch(err => {
@@ -26,62 +21,15 @@ const Recipes = () => {
         })
     }, []);
 
-    // useEffect(() => {
-    //     axiosWithAuth()
-    //     .get('/api/auth/users')
-    //     .then(res => {
-    //         console.log(res);
-    //         setUsers(res.data);
-    //     })
-    //     .catch(err => {
-    //         console.log(err);
-    //     })
-    // }, []);
-
-    // const user = users.find(user => user.user_id === Number(user_id));
-    // const username = user.username;
-
-    // useEffect(() => {
-    //     axiosWithAuth()
-    //     .get(`/api/recipes/${recipe_id}`)
-    //     .then(res => {
-    //         console.log(res);
-    //         setRecipe(res.data);
-    //     })
-    //     .catch(err => {
-    //         console.log(err);
-    //     })
-    // }, [recipe_id]);
-    
-    // const handleAdd = () => {
-    //     push('/add-recipe');
-    // }
-
-    // const handleUpdate = (recipe_id) => {
-    //     push(`/update-recipe/${recipes.recipe_id}`);
-    // }
-
-    // const deleteRecipe = (recipe_id) => {
-    //     setRecipes(recipes.filter(recipe =>(recipe.recipe_id !== Number(recipe_id))));
-    // }
-
-    // const handleDelete = (recipe_id) => {
-    //     axiosWithAuth()
-    //     .delete(`/api/recipes/${recipes.recipe_id}`)
-    //     .then(resp => {
-    //         deleteRecipe(recipes.recipe_id);
-    //         push('/recipes');
-    // })
-    //     .catch(err => {
-    //         console.log(err);
-    // })
-    // }
+    const deleteRecipe = (recipe_id) => {
+        setRecipes(recipes.filter(recipe => (recipe.recipe_id !== Number(recipe_id))));
+    }
 
     const handleDelete = (recipe_id) => {
         axiosWithAuth()
         .delete(`/api/recipes/${recipe_id}`)
         .then(res => {
-            console.log(res)
+            deleteRecipe(recipe_id);
             push('/recipes')
         })
         .catch(err => {
@@ -89,23 +37,6 @@ const Recipes = () => {
         })
     }
 
-    // const handleView = (recipe_id) => {
-    //     axiosWithAuth()
-    //     .get(`/api/recipes/${recipe_id}`)
-    //     .then(res => {
-    //         console.log(res)
-    //         push(`/api/recipes/${recipes.recipes_id}`)
-    //     })
-    //     .catch(err => {
-    //         console.log(err)
-    //     })
-    // }
-
-    // if (!recipe || (recipe.user_id !== userId && recipe.user_id > 0))
-    //     return (
-    //         <div className='status'>You don't have access to this recipe</div>
-    //     )
-    //     else 
     return (
     <All>
         <h1>Delicious recipes </h1>
@@ -135,9 +66,7 @@ const Recipes = () => {
                                         <Link to={`/recipes/${recipe.recipe_id}`}>
                                             <Button className='btn-icon' type='button'  size='sm' outline color='primary' >View</Button>
                                         </Link>
-                                        <Link>
-                                            <Button className='btn-icon' type='button' outline color='secondary' size='sm' onClick={() => handleDelete(recipe_id)}>Delete</Button>
-                                        </Link>
+                                        <Button className='btn-icon' type='button' outline color='secondary' size='sm' onClick={() => handleDelete(recipe.recipe_id)}>Delete</Button>
                                         </td>
                                     </tr>
                                 )
@@ -152,14 +81,12 @@ const Recipes = () => {
     )
     }
 
-
 export default Recipes;
 
 const All = styled.div`
-    height: 100vh;
+    height: 100vw;
     width: 100vw;
     background-color: #edf2fb;
-    /* border: 1px solid black; */
     background-image: linear-gradient(rgba(255,255,255,0.5), rgba(255,255,255,0.5)), url(${Banner});
     background-repeat: no-repeat;
     background-position: left top;
@@ -202,28 +129,27 @@ const All = styled.div`
 `
 
 const RecipesContainer = styled.div`
-    border: 2px solid #85c7de;
     border-radius: .5em;
     margin: 50px auto;
     text-align: center;
     width: 50%;
     height: auto;
-    background-color: #edf2fb;
     font-family: 'Montserrat', sans-serif;
 
     thead{
-        background-color: #edf2fb;
+        background-color: #40531b;
+        color: white;
     }
 
     th{
-        color: #757575;
+        color: white;
         font-size: 1.5rem;
     }
     tr{
-        border: 2px solid #85c7de;
+        border: 2px solid #40531b;
     }
     td{
-        background-color: #ffffff;
+        background-color: #afbc88;
         text-align: center;
         font-size: 1.2rem;
     }

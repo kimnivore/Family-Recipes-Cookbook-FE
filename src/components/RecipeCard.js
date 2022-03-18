@@ -15,7 +15,6 @@ const RecipeCard = (props) => {
         axiosWithAuth()
         .get(`/api/recipes/${recipe_id}`)
         .then(res => {
-            console.log(res);
             setRecipe(res.data);
         })
         .catch(err => {
@@ -32,7 +31,6 @@ const RecipeCard = (props) => {
         axiosWithAuth()
         .delete(`/api/recipes/${recipe_id}`)
         .then(res => {
-            console.log(res)
             push('/recipes')
         })
         .catch(err => {
@@ -42,35 +40,35 @@ const RecipeCard = (props) => {
 
     return (
         <All>
-        <RecipeCardContainer>
-            <Card className='text-center' style={{ backgroundColor: '#edf2fb', borderColor: '#333'}} >
-                <CardBody>
-                    <CardHeader className='title' tag='h3'>{recipe.recipe_name} </CardHeader>
-                    <CardTitle className='source' >By: {recipe.recipe_source}</CardTitle>
-                </CardBody>
+            <RecipeCardContainer>
+                <Card className='text-center' style={{ backgroundColor: '#fefae0', borderColor: '#333'}} >
+                    <CardBody>
+                        <CardHeader className='title' tag='h3'>{recipe.recipe_name} </CardHeader>
+                        <CardTitle className='source' >By: {recipe.recipe_source}</CardTitle>
+                    </CardBody>
 
-                <CardBody className='body'>
-                    <CardText className='data one'>Category: </CardText>
-                    <CardText className='data two'>{recipe.recipe_category}</CardText>
-                </CardBody>
+                    <CardBody className='body'>
+                        <CardText className='data one'>Category: </CardText>
+                        <CardText className='data two'>{recipe.recipe_category}</CardText>
+                    </CardBody>
 
-                <CardBody className='body'>
-                    <CardText className='data one'>Ingredients: </CardText>
-                    <CardText className='data two'> {recipe.recipe_ingredients}</CardText>
-                </CardBody>
+                    <CardBody className='body'>
+                        <CardText className='data one'>Ingredients: </CardText>
+                        <CardText className='data two'> {recipe.recipe_ingredients}</CardText>
+                    </CardBody>
 
-                <CardBody className='body'>
-                    <CardText className='data one'>Instructions: </CardText>
-                    <CardText className='data two'>{recipe.recipe_instructions}</CardText>
-                </CardBody>
+                    <CardBody className='body'>
+                        <CardText className='data one'>Instructions: </CardText>
+                        <CardText className='data two'>{recipe.recipe_instructions}</CardText>
+                    </CardBody>
 
-                <CardFooter>    
-                    <CardLink><Button className='btn-icon' type='button'  size='sm' outline color='primary' onClick={() => handleDelete(recipe_id)}>Delete</Button></CardLink>
-                    <CardLink><Button className='btn-icon' type='button'  size='sm' outline color='primary' onClick={(e) => routeToUpdate(e, recipe)} key={recipe.recipe_id}>Update</Button></CardLink>
-                </CardFooter>
-               
-            </Card>
-        </RecipeCardContainer>
+                    <CardFooter>    
+                        <CardLink><Button className='btn-icon' type='button'  size='sm' color='warning' onClick={() => handleDelete(recipe_id)}>Delete</Button></CardLink>
+                        <CardLink><Button className='btn-icon' type='button'  size='sm' color='warning' onClick={(e) => routeToUpdate(e, recipe)} key={recipe.recipe_id}>Update</Button></CardLink>
+                    </CardFooter>
+                
+                </Card>
+            </RecipeCardContainer>
         </All>
     )
 }
@@ -80,7 +78,7 @@ export default RecipeCard;
 const All = styled.div`
     height: 100vh;
     width: 100vw;
-    background-color: #edf2fb;
+    background-color: #fefae0;
     background-image: linear-gradient(rgba(255,255,255,0.5), rgba(255,255,255,0.5)), url(${Banner});
     background-repeat: no-repeat;
     background-position: left top;
@@ -103,18 +101,20 @@ const RecipeCardContainer = styled.div`
 
    .text-center{
        margin: 20px auto;
+       
    }
    .title{
-       background-color: #b6ccfe;
+       background-color: #bc6c25;
        font-size: 2.5rem;
    }
    .source{
        font-style: italic;
        margin-top: 10px;
+      
    }
    .data{
        border: 1px dotted black;
-       background-color: #d7e3fc;
+       background-color: #fbba72;
        width: 100%;
        height: auto;
        text-align: left;

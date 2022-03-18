@@ -3,26 +3,41 @@ import axiosWithAuth from '../utils/axiosWithAuth';
 import { useHistory, Link } from "react-router-dom";
 import styled from 'styled-components';
 import Banner from '../images/thumbs/01.jpg';
-import{ Button, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
+import{ Button, Form, FormGroup, Label, Input } from 'reactstrap';
+
+import * as yup from 'yup';
+import schema from './validations/RecipeSchema';
+
+const initialFormValues = {
+    recipe_name: '',
+    recipe_source: '',
+    recipe_category: '',
+    recipe_ingredients: '',
+    recipe_instructions: ''
+}
+
+const initialFormErrors = {
+    recipe_name: '',
+    recipe_source: '',
+    recipe_category: '',
+    recipe_ingredients: '',
+    recipe_instructions: ''
+}
+
+const initialDisabled = true;
 
 const AddRecipe = () => {
   const {push} = useHistory();
-  const [recipe, setRecipe] = useState({
-        // recipe_id: Date.now(),
-        recipe_name: '',
-        recipe_source: '',
-        recipe_ingredients: '',
-        recipe_instructions: '',
-        recipe_category: '',
-        // user_id: localStorage.getItem("user_id")
-  })
+  const [recipe, setRecipe] = useState(initialFormValues)
+  const [formErrors, setFormErrors] = useState(initialFormErrors);
   const [recipes, setRecipes] = useState([]);
+  const [disabled, setDisabled] = useState(initialDisabled);
 
+ 
   useEffect(() => {
       axiosWithAuth()
       .get('/api/recipes')
       .then(res => {
-          console.log(res);
           setRecipes(res.data);
       })
       .catch(err => {
@@ -30,7 +45,15 @@ const AddRecipe = () => {
       })
   }, [])
 
-  const handleChange = (e) => {
+  const validate = (name, value) => {
+    yup.reach(schema, name)
+      .validate(value)
+      .then(() => setFormErrors({ ...formErrors, [name]: ''}))
+      .catch(err => setFormErrors({ ...formErrors, [name]: err.errors[0] }))
+  }
+
+  const handleChange = (e, name, value) => {
+    validate(name, value);
     setRecipe({
       ...recipe,
       [e.target.name]: e.target.value
@@ -48,15 +71,19 @@ const AddRecipe = () => {
     .catch(err => {
         console.log(err);
     })
-   
   };
+
+  useEffect(() => {
+      schema.isValid(recipe).then((valid) => {
+          setDisabled(!valid);
+      });
+  }, [recipe]);
 
   return (
     <All>
-         <h1>Add a Recipe</h1>
+        <h1>Add a Recipe</h1>
         <ComponentContainer>
             <Form className='form' onSubmit={handleSubmit}>
-
                 <FormGroup>
                     <Label>Title:
                         <Input
@@ -67,8 +94,6 @@ const AddRecipe = () => {
                         />
                     </Label>
                 </FormGroup>
-
-            
                 <FormGroup>
                     <Label>Source:
                         <Input
@@ -87,21 +112,19 @@ const AddRecipe = () => {
                             type='select'
                             name='recipe_category'
                             onChange={handleChange}
-                            >
-                                <option value='none' selected disabled hidden>Select a Category</option>
-                                <option value='appetizer'>Appetizer</option>
-                                <option value='bakedgood'>Baked Good</option>
-                                <option value='dessert'>Dessert</option>
-                                <option value='main'>Main</option>
-                                <option value='salad'>Salad</option>
-                                <option value='sidedish'>Side Dish</option>
-                                <option value='snack'>Snack</option>
-                                <option value='soup'>Soup</option>  
+                            >   
+                                <option value='None' >Select a Category</option>
+                                <option value='Appetizer'>Appetizer</option>
+                                <option value='Baked good'>Baked Good</option>
+                                <option value='Dessert'>Dessert</option>
+                                <option value='Main'>Main</option>
+                                <option value='Salad'>Salad</option>
+                                <option value='Side Dish'>Side Dish</option>
+                                <option value='Snack'>Snack</option>
+                                <option value='Soup'>Soup</option>                                               
                         </Input>
                     </Label>
                 </FormGroup>
-
-                
                 <FormGroup>
                     <Label>Ingredients:
                         <Input
@@ -112,7 +135,6 @@ const AddRecipe = () => {
                         />
                     </Label>
                 </FormGroup>
-
                 <FormGroup>
                     <Label>Instructions:
                         <Input 
@@ -124,11 +146,10 @@ const AddRecipe = () => {
                     </Label>
                 </FormGroup>
 
-                <Button onClick={handleSubmit} className='btn-icon' type='button' outline color='primary'>Add Recipe</Button>
+                <Button disabled={disabled} onClick={handleSubmit} className='btn-icon' type='button' outline color='primary'>Add Recipe</Button>
                 <Link to={`/recipes`}>
                     <Button className='btn-icon' type='button' outline color='primary'>Cancel</Button> 
                 </Link>
-
             </Form>
         </ComponentContainer>
      </All>
@@ -138,16 +159,9 @@ const AddRecipe = () => {
 
 export default AddRecipe;
 
-// const mapStateToProps = state => {
-//   return ({
-//     addRecipe: state.addRecipe
-//   });
-// };
-
-// export default connect(mapStateToProps, { addRecipe })(AddRecipe);
 
 const All = styled.div`
-   height: 100vh;
+   height: 100%;
     width: 100vw;
     background-color: #edf2fb;
     background-image: linear-gradient(rgba(255,255,255,0.5), rgba(255,255,255,0.5)), url(${Banner});
@@ -196,7 +210,6 @@ const ComponentContainer = styled.div`
   }
 
   .input{
-      padding: 10px;
       width: 90%;
       margin-left: 20px;
   }

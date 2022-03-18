@@ -12,13 +12,13 @@ The little cards my grandma wrote the recipes on in her beautiful cursive are ge
 
 3. Homepage to view all entered `recipes`.
 
-4. Ability to search for `recipes` by `title` or tagged `categories`.
+<!-- 4. Ability to search for `recipes` by `title` or tagged `categories`. -->
 
-## 🏃‍♀️**Stretch**
+<!-- ## 🏃‍♀️**Stretch**
 
 1. Ability to upload a `picture` of the original `recipe` along with the `recipe` entry.
 
-2. By default all `recipe`s uploaded can only be viewed by the `user` logged in. A stretch goal would add the ability to invite another `user` with the link to view the `recipe`.
+2. By default all `recipe`s uploaded can only be viewed by the `user` logged in. A stretch goal would add the ability to invite another `user` with the link to view the `recipe`. -->
 
 ### ✅  **Set Up Details**
 
@@ -33,10 +33,10 @@ https://family-recipes-cookbook1.herokuapp.com/
 https://family-recipes-cookbook-frontend.vercel.app
 
 
-# *Meet the Team*
+# *Meet the Developer*
 ***Kim Nguyen
 Full Stack Engineer***
 
 Github: https://github.com/kimnivore
 
-LinkedIn: https://www.linkedin.com/in/kimnguyenshoung/
+LinkedIn: https://www.linkedin.com/in/kimnguyen79/

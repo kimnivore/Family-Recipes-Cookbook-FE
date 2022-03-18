@@ -1,7 +1,6 @@
 import axios from 'axios';
 import axiosWithAuth from '../utils/axiosWithAuth';
 
-
 export const LOGIN_START = 'LOGIN_START';
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
 export const LOGIN_FAIL = 'LOGIN_FAIL';
@@ -18,6 +17,7 @@ export const login = (credentials) => dispatch => {
         .catch(err => {
             console.log(err);
             dispatch({type: LOGIN_FAIL, payload: err })
+            alert('A valid username and password are required')
         })
 }
 
@@ -35,10 +35,12 @@ export const register = (credentials) => dispatch => {
             localStorage.setItem('password', res.data.password);
             localStorage.setItem('token', res.data.token);
             localStorage.setItem('user_id', res.data.user_id);
+            alert("You've been registered! Please sign in with your account information.")
         })
         .catch(err => {
             console.log(err);
             dispatch({type: REGISTER_FAIL, payload: err })
+            alert('A unique username is required')
         })
 }
 export const FETCH_USERS_START = 'FETCH_USERS_START';

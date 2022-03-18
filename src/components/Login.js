@@ -1,9 +1,8 @@
 import React, { useState, useEffect  } from 'react';
 import { useHistory, Redirect } from 'react-router-dom';
-import schema from './validations/Schema';
+import schema from './validations/UserSchema'
 import * as yup from 'yup';
-import { connect } from 'react-redux';
-import { login } from '../actions';
+import axios from 'axios';
 
 import styled from 'styled-components';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -43,8 +42,16 @@ const Login = ({ login }) => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        login(formValues);
-        push('/recipes');
+        axios.post('https://family-recipes-cookbook1.herokuapp.com/api/auth/login', formValues)
+        .then(res => {
+            localStorage.setItem('token', res.data.token);
+            localStorage.setItem('user_id', res.data.user_id);
+            push('/recipes');
+        })
+        .catch(err => {
+            console.log(err);
+            alert('A valid username and password are required')
+        })
     }
 
     useEffect(() => {
@@ -53,9 +60,9 @@ const Login = ({ login }) => {
         });
       }, [formValues]);
 
-    if(localStorage.getItem('token')) {
-        return <Redirect to='/recipes' />
-    } else {
+    // if(localStorage.getItem('token')) {
+    //     return <Redirect to='/recipes' />
+    // } else {
     
     return (
     <All>
@@ -98,20 +105,15 @@ const Login = ({ login }) => {
                 </div>
                 <button className="btn btn-primary btn-block" disabled={disabled}>Submit</button>
                 <p>Not a member yet? <a href='/register'>  Register now</a></p>
+
             </form>
         </LoginContainer>
     </All>
     )
 }
-}
-const mapStateToProps = (state) => {
-    return ({
-        loggingIn: state.loggingIn,
-    });
-}
 
 
-export default connect(mapStateToProps, { login })(Login);
+export default Login
 
 
 const All = styled.div`

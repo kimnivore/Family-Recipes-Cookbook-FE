@@ -3,6 +3,7 @@ import axiosWithAuth from '../utils/axiosWithAuth';
 import { useHistory, useParams, Link} from 'react-router-dom';
 import styled from 'styled-components';
 import Banner from '../images/thumbs/06.jpg';
+import{ Button, Form, FormGroup, Label, Input } from 'reactstrap';
 
 const UpdateRecipe = () => {
     const { recipe_id } = useParams();
@@ -21,7 +22,6 @@ const UpdateRecipe = () => {
         axiosWithAuth()
         .get('/api/recipes')
         .then(res => {
-            console.log(res);
             setRecipes(res.data);
         })
         .catch(err => {
@@ -33,13 +33,12 @@ const UpdateRecipe = () => {
         axiosWithAuth()
         .get(`/api/recipes/${recipe_id}`)
         .then(res => {
-            console.log(res);
             setRecipe(res.data)
         })
         .catch(err => {
             console.log(err)
         })
-}, [recipe_id])
+    }, [recipe_id])
 
     const handleChange = e => {
         setRecipe({
@@ -57,7 +56,6 @@ const UpdateRecipe = () => {
         axiosWithAuth()
         .put(`api/recipes/${recipe_id}`, recipe)
         .then(res => {
-            console.log(res);
             updateRecipe(res.data)
             setRecipes(res.data)
             push('/recipes')
@@ -69,97 +67,92 @@ const UpdateRecipe = () => {
 
     
     return (
-    <ComponentContainer>
-        {/* <div className="tabs-container">
-            <Link className="tab" to="/recipes">
-            All Recipes
-            </Link>
-            <Link className="tab" to="/user-recipes">
-            My Recipes
-            </Link>
-            <Link className="tab active" to="/add-recipe">
-            Add Recipe
-            </Link>
-        </div> */}
-        <div>
-            <h1>Update Recipe</h1>
-            <form onSubmit={handleSubmit}>
-            <div className='form-container'>
-                {/* <img src={Pic} alt='sample pic'/> */}
-                <div className='label-container'>
-                <div className='label'>
-                    <label>Recipe Name:
-                        <input
+    <All>
+        <h1>Update Recipe</h1>
+        <ComponentContainer>
+            <Form className='form' onSubmit={handleSubmit}>
+                <FormGroup>
+                    <Label>Title:
+                        <Input
+                            className='input'
                             type='text'
                             name='recipe_name'
                             value={recipe.recipe_name}
                             onChange={handleChange}
                         />
-                    </label>
-                </div>
-                <div className='label'>
-                    <label>Source:
-                        <input
+                    </Label>
+                </FormGroup>
+
+                <FormGroup>
+                    <Label>Source:
+                        <Input
+                            className='input'
                             type='text'
                             name='recipe_source'
                             value={recipe.recipe_source}
                             onChange={handleChange}
                         />
-                    </label>
-                </div>
-                <div className='label'>
-                    <label>Category:
-                        <input
-                            type='text'
+                    </Label>
+                </FormGroup>
+
+               <FormGroup>
+                    <Label>Category:
+                        <Input
+                            className='input'
+                            type='select'
                             name='recipe_category'
-                            value={recipe.recipe_category}
                             onChange={handleChange}
-                        />
-                    </label>
-                </div>
-                <div className='label'>
-                    <label>Ingredients:
-                        <input
-                            type='text'
+                        >
+                            <option value='None'>Select a Category</option>
+                            <option value='Appetizer'>Appetizer</option>
+                            <option value='Baked Good'>Baked Good</option>
+                            <option value='Dessert'>Dessert</option>
+                            <option value='Main'>Main</option>
+                            <option value='Salad'>Salad</option>
+                            <option value='Side Dish'>Side Dish</option>
+                            <option value='Snack'>Snack</option>
+                            <option value='Soup'>Soup</option>  
+                        </Input>
+                    </Label>
+                </FormGroup>
+                
+                <FormGroup>
+                    <Label>Ingredients:
+                        <Input
+                            className='input'
+                            type='textarea'
                             name='recipe_ingredients'
                             value={recipe.recipe_ingredients}
                             onChange={handleChange}
                         />
-                    </label>
-                </div>
-                <div className='label'>
-                    <label>Instructions:
-                        <input 
-                            type='text'
+                    </Label>
+                </FormGroup>
+
+               <FormGroup>
+                    <Label>Instructions:
+                        <Input 
+                            className='input'
+                            type='textarea'
                             name='recipe_instructions'
                             value={recipe.recipe_instructions}
                             onChange={handleChange}
                         />
-                    </label>
-                </div>
-                <button>Update Recipe</button>
-                <Link to={`/recipes`}><input type="button" className='button' value="Cancel"/></Link>
-                </div>
-            </div>
-            </form>
-        </div>
-        </ComponentContainer>
-    )
+                    </Label>
+                </FormGroup>
 
+                <Button onClick={handleSubmit} className='btn-icon' type='button' outline color='primary'>Update Recipe</Button>
+                <Link to={`/recipes`}>
+                    <Button className='btn-icon' type='button' outline color='primary'>Cancel</Button>
+                </Link>
+            </Form>
+        </ComponentContainer>
+    </All>
+    )
 }
 
-// const mapStateToProps = state => {
-//     return ({
-//       updateRecipe: state.updateRecipe
-//     });
-//   };
-
-// export default connect(mapStateToProps, { updateRecipe })(UpdateRecipe);
-
 export default UpdateRecipe;
-
-const ComponentContainer = styled.div`
-    height: 100vh;
+const All = styled.div`
+   height: 100%;
     width: 100vw;
     background-color: #edf2fb;
     background-image: linear-gradient(rgba(255,255,255,0.5), rgba(255,255,255,0.5)), url(${Banner});
@@ -173,51 +166,63 @@ const ComponentContainer = styled.div`
     
     h1{
         font-size: 3rem;
-        margin-top: 50px;
+        margin: 50px auto 0;
         font-family: 'Montserrat', sans-serif;
     }
+    h2{
+        font-size: 1.8rem;
+        font-style: italic;
+        margin-left: 150px;
+        margin-top: 10px;
+        font-family: 'Hurricane', cursive;
+    }
+   
+`
+const ComponentContainer = styled.div`
+  .form{
+    border: 2px solid #85c7de;
+    border-radius: .5em;
+    margin: 50px auto;
+    text-align: center;
+    width: 40%;
+    height: auto;
+    background-color: #edf2fb;
+    font-family: 'Montserrat', sans-serif;
+  }
+  
 
-    h1{
-    font-size: 60px;
-    font-weight: 400;
-    padding: 20px;
-    margin: auto;
-    width: 100%;
-    align-items: center;
-    color: white;
-    }
+  Label{
+      display: flex;
+      align-items: flex-start;
+      justify-content: flex-start;
+      padding: 10px;
+      margin: 20px;
+   
+  }
 
-    .form-container {
-        display: flex;
-        justify-content: space-between;
-        align-items: flex-start;
-        padding: 50px;
-        width: 80%;
-    }
-    label{
-        display: flex;
-        justify-content: space-between;
-        color: white;
-        margin: 20px;
-        font-size: 20px;
-    }
+  .input{
+      width: 90%;
+      margin-left: 20px;
+      height: auto;
+  }
 
-    input {
-        margin-left: 40px;
-    }
-    button{
-        font-size: 16px;
-        background-color: black;
-        border-radius: 10%;
-        color: white;
-        padding: 15px 10px;
-        margin-left: 200px;
-    }
-
-    img{
-        width: 200px;
-        height: 200px;
-        margin: 0 50px;
+  Button{
+        margin: 10px;
+        font-size: 0.9rem;
     }
 
+/* tablet */
+@media (max-width: 768px) {
+.form{
+    width: 80%;
+}
+}
+
+/* mobile */
+@media (max-width: 480px) {
+.form{
+width: 90%;
+}
+}
+  
 `
