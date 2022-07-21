@@ -6,6 +6,7 @@ import PrivateRoute from './utils/PrivateRoute';
 import { connect } from 'react-redux';
 
 import Navigation from './components/Navigation';
+import Home from './components/Home';
 import Login from './components/Login';
 import Register from './components/Register';
 import Logout from './components/Logout';
@@ -29,7 +30,8 @@ function App() {
           <PrivateRoute path='/logout' component={Logout} />
           <Route path='/register' component={Register} /> 
           <Route path='/login' component={Login} />
-          <Route path='/'>{localStorage.getItem('token') ? (<Redirect to='/recipes' /> ) : (<Redirect to='/login' />)} </Route>
+          <Route path='/home' component={Home} />
+          <Route path='/'>{localStorage.getItem('token') ? (<Redirect to='/recipes' /> ) : (<Redirect to='/home' />)} </Route>
         </Switch>
       
     </AppContainer>
