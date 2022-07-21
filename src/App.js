@@ -51,5 +51,4 @@ export default connect(mapStateToProps, {})(App);
 
 const AppContainer = styled.div`
   height: 100%;
-  border: 1px solid black;
 `

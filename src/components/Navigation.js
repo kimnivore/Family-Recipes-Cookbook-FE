@@ -28,6 +28,7 @@ const Navigation = () => {
           <Collapse isOpen={isOpen} navbar>
             <Nav className='mr-auto' navbar>
               <NavItem className='NavItem'>
+              <NavLink href='/home' >Home</NavLink>
                 <NavLink href='/recipes' >Recipes</NavLink>
                 <NavLink href='/add-recipe' >Add Recipe</NavLink>
                 <NavLink href='/logout' >Logout</NavLink>
@@ -42,6 +43,7 @@ const Navigation = () => {
           <Collapse isOpen={isOpen} navbar>
             <Nav className='mr-auto' navbar>
               <NavItem className='NavItem'>
+               <NavLink href='/home' >Home</NavLink>
                 <NavLink href='/login' >Login</NavLink>
                 <NavLink href='/register'>Register</NavLink>
               </NavItem>
