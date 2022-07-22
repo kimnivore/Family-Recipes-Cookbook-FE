@@ -186,13 +186,13 @@ const All = styled.div`
 `
 const ComponentContainer = styled.div`
   .form{
-    border: 2px solid #85c7de;
+    border: 2px solid #f0efeb;
     border-radius: .5em;
     margin: 50px auto;
     text-align: center;
     width: 40%;
     height: auto;
-    background-color: #edf2fb;
+    background-color: #f0efeb;
   }
   
 

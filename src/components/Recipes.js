@@ -133,19 +133,19 @@ const RecipesContainer = styled.div`
     height: auto;
 
     thead{
-        background-color: #40531b;
+        background-color: #dbe7e4;
         color: white;
     }
 
     th{
-        color: white;
+        color: black;
         font-size: 1.5rem;
     }
     tr{
         border: 2px solid #40531b;
     }
     td{
-        background-color: #afbc88;
+        background-color: #f0efeb;
         text-align: center;
         font-size: 1.2rem;
     }

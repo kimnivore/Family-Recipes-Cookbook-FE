@@ -41,7 +41,7 @@ const RecipeCard = (props) => {
     return (
         <All>
             <RecipeCardContainer>
-                <Card className='text-center' style={{ backgroundColor: '#fefae0', borderColor: '#333'}} >
+                <Card className='text-center' style={{ backgroundColor: '#f0efeb', borderColor: '#dbe7e4'}} >
                     <CardBody>
                         <CardHeader className='title' tag='h3'>{recipe.recipe_name} </CardHeader>
                         <CardTitle className='source' >By: {recipe.recipe_source}</CardTitle>
@@ -63,8 +63,8 @@ const RecipeCard = (props) => {
                     </CardBody>
 
                     <CardFooter>    
-                        <CardLink><Button className='btn-icon' type='button'  size='sm' color='warning' onClick={() => handleDelete(recipe_id)}>Delete</Button></CardLink>
-                        <CardLink><Button className='btn-icon' type='button'  size='sm' color='warning' onClick={(e) => routeToUpdate(e, recipe)} key={recipe.recipe_id}>Update</Button></CardLink>
+                        <CardLink><Button className='btn-icon' type='button'  size='sm' outline color='primary' onClick={() => handleDelete(recipe_id)}>Delete</Button></CardLink>
+                        <CardLink><Button className='btn-icon' type='button'  size='sm' outline color='primary' onClick={(e) => routeToUpdate(e, recipe)} key={recipe.recipe_id}>Update</Button></CardLink>
                     </CardFooter>
                 
                 </Card>
@@ -93,7 +93,7 @@ const All = styled.div`
     }
 `
 const RecipeCardContainer = styled.div`
-   width: 50%;
+   width: 70%;
    height: auto;
    margin: 50px auto;
 
@@ -102,7 +102,7 @@ const RecipeCardContainer = styled.div`
        
    }
    .title{
-       background-color: #bc6c25;
+       background-color: #dbe7e4;
        font-size: 2.5rem;
    }
    .source{
@@ -112,19 +112,19 @@ const RecipeCardContainer = styled.div`
    }
    .data{
        border: 1px dotted black;
-       background-color: #fbba72;
+       background-color: #dbe7e4;
        width: 100%;
        height: auto;
        text-align: left;
        margin: 5px;
    }
    .one{
-       width: 25%;
+       width: 30%;
        padding: 20px;
        font-size: 1.2rem;
    }
    .two{
-       width: 75%;
+       width: 70%;
        padding: 20px;
    }
  
@@ -148,12 +148,12 @@ const RecipeCardContainer = styled.div`
 
     /* mobile */
     @media (max-width: 480px) {
-    width: 99%;
+    /* width: 99%; */
     .one{
-    font-size: 0.8rem;
+    font-size: 0.7rem;
     }
     .two{
-    font-size: .8rem;
+    font-size: 0.7rem;
     }
     }
   
