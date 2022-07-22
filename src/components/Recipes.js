@@ -94,19 +94,16 @@ const All = styled.div`
     display: flex;
     flex-direction: column;
     text-align: center;
-    font-family: 'Montserrat', sans-serif;
     
     h1{
         font-size: 3rem;
         margin: 50px auto 0;
-        font-family: 'Montserrat', sans-serif;
     }
     h2{
         font-size: 1.8rem;
         font-style: italic;
         margin-left: 150px;
         margin-top: 10px;
-        font-family: 'Hurricane', cursive;
     }
      /* tablet */
      @media (max-width: 768px) {
@@ -134,7 +131,6 @@ const RecipesContainer = styled.div`
     text-align: center;
     width: 50%;
     height: auto;
-    font-family: 'Montserrat', sans-serif;
 
     thead{
         background-color: #40531b;

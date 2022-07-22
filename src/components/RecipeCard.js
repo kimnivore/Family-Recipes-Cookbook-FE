@@ -86,12 +86,10 @@ const All = styled.div`
     display: flex;
     flex-direction: column;
     text-align: center;
-    font-family: 'Montserrat', sans-serif;
     
     h1{
         font-size: 3rem;
         margin-top: 50px;
-        font-family: 'Montserrat', sans-serif;
     }
 `
 const RecipeCardContainer = styled.div`

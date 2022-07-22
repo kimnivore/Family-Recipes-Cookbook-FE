@@ -1,6 +1,7 @@
 import React from 'react';
 import { Route, Redirect, Switch } from 'react-router-dom';
 import styled from 'styled-components';
+import './App.css';
 import PrivateRoute from './utils/PrivateRoute';
 
 import { connect } from 'react-redux';
@@ -18,6 +19,7 @@ import UpdateRecipe from './components/UpdateRecipe';
 
 function App() {
   return (
+    <div className='App'>
     <AppContainer>
   
         <Navigation />
@@ -35,6 +37,7 @@ function App() {
         </Switch>
       
     </AppContainer>
+    </div>
   );
 }
 

@@ -171,19 +171,16 @@ const All = styled.div`
     display: flex;
     flex-direction: column;
     text-align: center;
-    font-family: 'Montserrat', sans-serif;
     
     h1{
         font-size: 3rem;
         margin: 50px auto 0;
-        font-family: 'Montserrat', sans-serif;
     }
     h2{
         font-size: 1.8rem;
         font-style: italic;
         margin-left: 150px;
         margin-top: 10px;
-        font-family: 'Hurricane', cursive;
     }
    
 `
@@ -196,7 +193,6 @@ const ComponentContainer = styled.div`
     width: 40%;
     height: auto;
     background-color: #edf2fb;
-    font-family: 'Montserrat', sans-serif;
   }
   
 
